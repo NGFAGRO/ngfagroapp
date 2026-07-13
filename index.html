@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#16a34a">
+<title>NGF AGRO</title>
+<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22NGF%20AGRO%22%2C%22short_name%22%3A%22NGF%20AGRO%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%2316a34a%22%2C%22icons%22%3A%5B%5D%7D">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Tiro+Bangla&display=swap');
+:root{
+  --wheat:#c17817; --wheat-deep:#8f5a10; --wheat-soft:#fbf0dd;
+  --forest:#1f5f3f; --forest-deep:#153f2a; --forest-soft:#e6f0ea;
+  --clay:#b5432f; --clay-soft:#fbe9e5;
+  --indigo:#2f4a7a; --indigo-soft:#e8edf7;
+  --plum:#6b3fa0;
+  --paper:#faf6ee; --card:#fffdf8; --ink:#2b2318; --muted:#7a6f5c; --line:#e7ddc9;
+  --radius:14px;
+}
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Hind Siliguri','Tiro Bangla','Segoe UI',sans-serif; }
+body { background:var(--paper); background-image:radial-gradient(circle at 100% 0%, rgba(193,120,23,.05), transparent 40%); padding:12px; padding-bottom:78px; color:var(--ink); }
+.wrap { max-width:600px; margin:0 auto; }
+.card { background:var(--card); border-radius:16px; box-shadow:0 1px 2px rgba(43,35,24,.05),0 10px 26px rgba(43,35,24,.08); overflow:hidden; border:1px solid var(--line); }
+.header { background:linear-gradient(120deg,var(--forest-deep) 0%,var(--forest) 65%,#276b48 100%); padding:22px 18px 26px; color:#fff; position:relative; overflow:hidden; }
+.header::before{ content:'🌾'; position:absolute; right:10px; top:8px; font-size:64px; opacity:.14; transform:rotate(12deg); }
+.header h1 { font-size:24px; letter-spacing:.2px; font-weight:700; }
+.header p { font-size:12px; opacity:.82; margin-top:2px; }
+.content { padding:16px 14px; position:relative; }
+.content::before{ content:''; position:absolute; top:0; left:14px; right:14px; height:1px; background-image:linear-gradient(to right, var(--line) 60%, transparent 0%); background-size:10px 1px; background-repeat:repeat-x; }
+
+.btn { width:100%; padding:11px; border-radius:11px; font-weight:700; font-size:14px; border:none; cursor:pointer; color:#fff; transition:transform .08s ease, filter .15s ease; letter-spacing:.2px; }
+.btn:active{ transform:scale(.98); filter:brightness(.94); }
+.btn-green { background:var(--forest); } .btn-blue { background:var(--indigo); }
+.btn-red { background:var(--clay); } .btn-purple { background:var(--plum); }
+.btn-orange { background:var(--wheat-deep); }
+.btn-sm { padding:7px 12px; font-size:12px; width:auto; border-radius:9px; }
+
+input, select { width:100%; padding:10px 12px; border:1.5px solid var(--line); border-radius:10px; font-size:14px; margin-bottom:8px; background:#fffef9; color:var(--ink); transition:border-color .15s,box-shadow .15s; }
+input:focus, select:focus { outline:none; border-color:var(--forest); box-shadow:0 0 0 3px rgba(31,95,63,.12); }
+input::placeholder{ color:#a89a7d; }
+
+.box { padding:12px; border-radius:var(--radius); margin:10px 0; position:relative; }
+.box-green { background:var(--forest-soft); border:1px solid #cfe3d7; border-left:4px solid var(--forest); }
+.box-blue { background:var(--indigo-soft); border:1px solid #d3ddf0; border-left:4px solid var(--indigo); }
+.box-orange { background:var(--wheat-soft); border:1px solid #ecd9ae; border-left:4px solid var(--wheat-deep); }
+.box-yellow { background:#fdf6e3; border:1px solid #ecdba0; border-left:4px solid #a5750f; }
+
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+.item { background:var(--card); border:1px solid var(--line); border-radius:var(--radius); margin:10px 0; overflow:hidden; box-shadow:0 1px 2px rgba(43,35,24,.04); }
+.item-head { padding:13px 14px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:background .15s; }
+.item-head:active{ background:#f8f3e8; }
+.item-body { border-top:1px dashed var(--line); padding:13px 14px; background:#fefcf6; font-size:13px; }
+
+.flex { display:flex; gap:8px; align-items:center; }
+.between { display:flex; justify-content:space-between; align-items:center; }
+.bold { font-weight:700; }
+.green { color:var(--forest); } .red { color:var(--clay); } .blue { color:var(--indigo); } .gray { color:var(--muted); } .orange { color:var(--wheat-deep); }
+.sm { font-size:12.5px; } .xs { font-size:11.5px; }
+.center { text-align:center; }
+.mt { margin-top:8px; } .mb { margin-bottom:8px; }
+.note { text-align:center; color:#a89a7d; font-size:11px; margin-top:10px; }
+
+.cart-row { display:flex; align-items:center; gap:8px; background:#f8f3e8; padding:9px; border-radius:10px; margin-bottom:6px; border:1px solid var(--line); }
+.cart-row input { width:64px; text-align:center; margin-bottom:0; }
+
+.nav { position:fixed; bottom:0; left:0; right:0; background:rgba(255,253,248,.97); backdrop-filter:blur(8px); border-top:1px solid var(--line); display:flex; box-shadow:0 -4px 18px rgba(43,35,24,.08); padding:4px 2px calc(4px + env(safe-area-inset-bottom)); }
+.nav button { flex:1; padding:6px 2px; background:none; border:none; cursor:pointer; color:#9c9078; font-size:10px; font-weight:600; display:flex; flex-direction:column; align-items:center; gap:2px; border-radius:12px; margin:0 2px; transition:background .15s,color .15s; }
+.nav button.active { color:var(--forest-deep); background:var(--forest-soft); }
+.nav .ico { font-size:19px; line-height:1; }
+
+.stat { padding:14px 10px; border-radius:var(--radius); text-align:center; border:1px solid rgba(43,35,24,.04); }
+.stat .num { font-size:20px; font-weight:700; letter-spacing:.1px; }
+.stat .lbl { font-size:11px; color:var(--muted); margin-top:3px; font-weight:600; }
+
+label.upload { flex:1; background:var(--plum); color:#fff; padding:11px; border-radius:11px; font-weight:700; font-size:14px; text-align:center; cursor:pointer; display:block; }
+label.upload input { display:none; }
+
+.divider { border-top:1px dashed #d8cba3; margin:14px 0; }
+.tag { display:inline-block; padding:2px 9px; border-radius:20px; font-size:10px; font-weight:700; vertical-align:middle; }
+.tag-red { background:var(--clay-soft); color:var(--clay); }
+.tag-green { background:var(--forest-soft); color:var(--forest-deep); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+  <div class="header">
+    <h1>🌾 NGF AGRO</h1>
+    <p id="headerSub">বিজনেস ম্যানেজমেন্ট</p>
+  </div>
+  <div class="content" id="content"></div>
+</div>
+<p class="note">🔒 সব ডাটা আপনার ফোনে সংরক্ষিত</p>
+</div>
+
+<div class="nav">
+  <button id="navHome" onclick="switchTab('dashboard')"><span class="ico">📊</span>হোম</button>
+  <button id="navCustomer" onclick="switchTab('customer')"><span class="ico">👥</span>কাস্টমার</button>
+  <button id="navDue" onclick="switchTab('due')"><span class="ico">💰</span>বকেয়া</button>
+  <button id="navSupplier" onclick="switchTab('supplier')"><span class="ico">🏭</span>সাপ্লায়ার</button>
+  <button id="navStock" onclick="switchTab('stock')"><span class="ico">📦</span>স্টক</button>
+  <button id="navMore" onclick="switchTab('more')"><span class="ico">⚙️</span>আরও</button>
+</div>
+
+<script>
+let stock = JSON.parse(localStorage.getItem('ngfStock') || '[]');
+let customers = JSON.parse(localStorage.getItem('ngfCustomers') || '[]');
+let suppliers = JSON.parse(localStorage.getItem('ngfSuppliers') || '[]');
+let withdrawals = JSON.parse(localStorage.getItem('ngfWithdrawals') || '[]');
+let inactiveDaysLimit = parseInt(localStorage.getItem('ngfInactiveDays') || '30');
+let activeTab = 'dashboard';
+let showAddStock=false, showAddCustomer=false, showAddSupplier=false;
+let expandedStock=null, expandedCustomer=null, expandedSupplier=null;
+let cart = {};
+let custSearch = '';
+let dueSearch = '';
+let expandedMonth = null;
+let expandedTopMonth = null;
+let showSalesReport = false;
+let selectedExisting = null;
+let existSearch = '';
+let goodsSearch = '';
+
+function save() {
+  localStorage.setItem('ngfStock', JSON.stringify(stock));
+  localStorage.setItem('ngfCustomers', JSON.stringify(customers));
+  localStorage.setItem('ngfSuppliers', JSON.stringify(suppliers));
+  localStorage.setItem('ngfWithdrawals', JSON.stringify(withdrawals));
+}
+function bn(n){ return (Math.round((n||0)*100)/100).toLocaleString('bn-BD'); }
+// কার্যকর বাকি: ১ টাকার কম (পয়সা) হলে ০ ধরা হবে
+function netDue(c){ const d=c.totalSale-c.totalPaid; return Math.abs(d)<1?0:d; }
+// কাস্টমার/আইটেমের timestamp: ts না থাকলে id ব্যবহার (id ও Date.now() ছিল)
+function getTS(c){ return c.ts || c.id || 0; }
+
+// পুরনো কাস্টমার (sales অ্যারে নেই) কে নতুন কাঠামোয় রূপান্তর - অন-দ্য-ফ্লাই
+function migrateCustomer(c){
+  if(c.sales) return c; // ইতিমধ্যে নতুন কাঠামো
+  const allItems=c.items||[];
+  // "আগের বকেয়া" আইটেম আলাদা করি
+  const oldDueItems=allItems.filter(it=>it.isOldDue || it.itemName==='আগের বকেয়া');
+  const goodsItems=allItems.filter(it=>!(it.isOldDue || it.itemName==='আগের বকেয়া'));
+  // আগের বকেয়ার মোট
+  let oldDueAmount=oldDueItems.reduce((a,it)=>a+(it.saleAmount||0),0);
+  // যদি oldDueAmount ফিল্ড আলাদা থাকে সেটাও ধরি (নতুন সেভে ছিল)
+  if(c.oldDueAmount && oldDueAmount===0) oldDueAmount=c.oldDueAmount;
+  // সাধারণ মালের বিক্রয়
+  const goodsSale=goodsItems.reduce((a,it)=>a+(it.saleAmount||0),0);
+  const sales=[];
+  if(goodsItems.length>0){
+    sales.push({
+      id:c.id, ts:getTS(c), date:c.date||now(),
+      items:goodsItems,
+      totalSale:goodsSale,
+      totalProfit:c.totalProfit||0,
+      myFreight:c.myFreight||0, custFreight:c.custFreight||0
+    });
+  }
+  return {
+    id:c.id, name:c.name, mobile:c.mobile, address:c.address||'',
+    sales:sales,
+    oldDue:oldDueAmount,
+    payments:c.payments||[],
+    firstTS:getTS(c)
+  };
+}
+
+// একজন কাস্টমারের মোট হিসাব বের করা
+function custTotals(c){
+  c=migrateCustomer(c);
+  let totalSale=0, totalProfit=0, totalMyFreight=0;
+  (c.sales||[]).forEach(s=>{ totalSale+=s.totalSale||0; totalProfit+=s.totalProfit||0; totalMyFreight+=s.myFreight||0; });
+  totalSale+=(c.oldDue||0); // আগের বকেয়া মোট পাওনায় যোগ (লাভে নয়)
+  const totalPaid=(c.payments||[]).reduce((a,p)=>a+p.amount,0);
+  return {totalSale,totalProfit,totalPaid,totalMyFreight,balance:totalSale-totalPaid};
+}
+// কার্যকর বাকি (পয়সা বাদ)
+function custNetDue(c){ const b=custTotals(c).balance; return Math.abs(b)<1?0:b; }
+// কাস্টমারের শেষ লেনদেনের সময়
+function custLastTS(c){ c=migrateCustomer(c); let t=c.firstTS||getTS(c); (c.sales||[]).forEach(s=>{ if(s.ts>t) t=s.ts; }); (c.payments||[]).forEach(p=>{ if(p.ts&&p.ts>t) t=p.ts; }); return t; }
+// শেষ লেনদেনের পর কত দিন গেছে
+function daysSince(ts){ if(!ts) return 9999; return Math.floor((Date.now()-ts)/86400000); }
+// মালিকের উত্তোলন যোগ
+function addWithdrawal(){
+  const inp=document.getElementById('wdAmount');
+  const note=document.getElementById('wdNote');
+  const amt=parseFloat(inp.value);
+  if(!amt||amt<=0){ alert('টাকার পরিমাণ দিন'); return; }
+  withdrawals.push({id:Date.now(),ts:Date.now(),amount:amt,note:(note.value||'').trim(),date:now()});
+  save(); render();
+}
+// নির্দিষ্ট কাস্টমারের নিজস্ব খোঁজ-সতর্কতার দিন
+function custLimit(c){ return c.inactiveDays || inactiveDaysLimit; }
+function setCustInactive(id){
+  const inp=document.getElementById('inact-'+id);
+  const v=parseInt(inp.value);
+  customers=customers.map(c=>{ c=migrateCustomer(c); if(c.id.toString()===id.toString()){ return {...c, inactiveDays:(v&&v>0)?v:undefined}; } return c; });
+  save(); render();
+  alert(v&&v>0?('এই কাস্টমারের জন্য '+v+' দিন সেট হলো'):'ডিফল্ট সেটিংয়ে ফিরে গেল');
+}
+function setInactiveDays(){
+  const inp=document.getElementById('inactiveDaysInput');
+  const v=parseInt(inp.value);
+  if(!v||v<1){ alert('১ বা তার বেশি দিন দিন'); return; }
+  inactiveDaysLimit=v;
+  localStorage.setItem('ngfInactiveDays', v.toString());
+  render();
+  alert('সেট হয়েছে! এখন '+v+' দিন খোঁজ না থাকলে জানাবে।');
+}
+function delWithdrawal(id){ if(confirm('এই উত্তোলন মুছবেন?')){ withdrawals=withdrawals.filter(w=>w.id!==id); save(); render(); } }
+// মাসভিত্তিক লাভ হিসাব
+function monthlyProfits(){
+  const map={};
+  customers.forEach(c=>{ c=migrateCustomer(c); (c.sales||[]).forEach(s=>{
+    const d=new Date(s.ts); const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+    if(!map[k]) map[k]={profit:0,sale:0,label:d.toLocaleDateString('bn-BD',{month:'long',year:'numeric'}),key:k,days:{}};
+    map[k].profit+=s.totalProfit||0; map[k].sale+=s.totalSale||0;
+    const dk=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    if(!map[k].days[dk]) map[k].days[dk]={profit:0,sale:0,label:d.toLocaleDateString('bn-BD',{day:'numeric',month:'long'})};
+    map[k].days[dk].profit+=s.totalProfit||0; map[k].days[dk].sale+=s.totalSale||0;
+  }); });
+  return Object.keys(map).sort().reverse().map(k=>map[k]);
+}
+// কাস্টমারের মাসভিত্তিক ওজন ও টাকার হিসাব
+function custMonthlyKg(c){
+  c=migrateCustomer(c);
+  const map={};
+  (c.sales||[]).forEach(s=>{
+    const d=new Date(s.ts); const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+    if(!map[k]) map[k]={kg:0,taka:0,label:d.toLocaleDateString('bn-BD',{month:'long',year:'numeric'})};
+    s.items.forEach(it=>{ map[k].kg+=(it.kg||0); });
+    map[k].taka+=s.totalSale||0;
+  });
+  return Object.keys(map).sort().reverse().map(k=>map[k]);
+}
+// মালের নাম থেকে শেষের (তারিখ) অংশ বাদ দিয়ে মূল নাম বের করা - যেমন "সয়াবিন ভুষি (৩০-০৬-২০২৬)" → "সয়াবিন ভুষি"
+function baseItemName(name){
+  let n=(name||'').trim();
+  // সম্পূর্ণ বন্ধনী সহ তারিখ: (৩০-০৬-২০২৬)
+  n=n.replace(/\s*\([০-৯0-9]{1,2}[-\/][০-৯0-9]{1,2}[-\/][০-৯0-9]{2,4}\)?\s*$/,'');
+  // শেষে খোলা বন্ধনী দিয়ে অসম্পূর্ণ তারিখ: (২৫-০৬-২০২৭
+  n=n.replace(/\s*\([০-৯0-9]{1,2}[-\/][০-৯0-9]{1,2}[-\/][০-৯0-9]{2,4}$/,'');
+  // এখনও কোনো বন্ধনী/তারিখের ছিটেফোঁটা থাকলে বাদ
+  n=n.replace(/[\(\)]+\s*$/,'').trim();
+  // ম্যানুয়াল মাল-মেলানো তালিকা প্রয়োগ (ইউজার সেট করা)
+  const aliases=JSON.parse(localStorage.getItem('ngfItemAliases')||'{}');
+  const key=n.toLowerCase();
+  if(aliases[key]) n=aliases[key];
+  return n.trim();
+}
+// এই মাসে কোন মাল কত বিক্রি হয়েছে (সিরিয়ালি সাজানো, ব্যাচ-তারিখ একসাথে যোগ)
+function topSellingThisMonth(){
+  const all=monthlyTopSelling();
+  return all.length>0 ? all[0].items : [];
+}
+// প্রতিটা মাসের জন্য আলাদা সেরা-বিক্রিত মালের তালিকা (সারা বছর/সব মাস)
+function monthlyTopSelling(){
+  const monthMap={};
+  customers.forEach(c=>{ c=migrateCustomer(c); (c.sales||[]).forEach(s=>{
+    const d=new Date(s.ts); const mk=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+    if(!monthMap[mk]) monthMap[mk]={key:mk,label:d.toLocaleDateString('bn-BD',{month:'long',year:'numeric'}),items:{}};
+    s.items.forEach(it=>{
+      if(it.isOldDue) return;
+      const base=baseItemName(it.itemName);
+      if(!monthMap[mk].items[base]) monthMap[mk].items[base]={name:base,kg:0,taka:0,bags:0};
+      monthMap[mk].items[base].kg+=(it.kg||0); monthMap[mk].items[base].taka+=(it.saleAmount||0); monthMap[mk].items[base].bags+=(it.bags||0);
+    });
+  }); });
+  return Object.keys(monthMap).sort().reverse().map(mk=>{
+    const m=monthMap[mk];
+    return {key:m.key, label:m.label, items:Object.values(m.items).sort((a,b)=>b.kg-a.kg)};
+  });
+}
+// ফোন করা
+function callCustomer(mob){ window.location.href='tel:'+mob; }
+// কাস্টমারের ক্রেডিট রেটিং (সবুজ/হলুদ/লাল) সেট করা
+function setCreditTag(id, tag){
+  customers=customers.map(c=>{ c=migrateCustomer(c); if(c.id.toString()===id.toString()){ return {...c, creditTag:tag}; } return c; });
+  save(); render();
+}
+// কোন মাল কত বিক্রি হয়েছে (মোট কেজি, টাকা, লাভ)
+// মাল-মেলানো: ভিন্ন বানানের মালকে একই নামে মেলানো (ম্যানুয়াল)
+function getItemAliases(){ return JSON.parse(localStorage.getItem('ngfItemAliases')||'{}'); }
+function addItemAlias(){
+  const fromInp=document.getElementById('aliasFrom');
+  const toInp=document.getElementById('aliasTo');
+  const from=(fromInp.value||'').trim();
+  const to=(toInp.value||'').trim();
+  if(!from||!to){ alert('দুটো নামই লিখুন'); return; }
+  const aliases=getItemAliases();
+  aliases[from.toLowerCase()]=to;
+  localStorage.setItem('ngfItemAliases', JSON.stringify(aliases));
+  fromInp.value=''; toInp.value='';
+  render();
+  alert('"'+from+'" এখন থেকে "'+to+'" হিসেবে গণনা হবে');
+}
+function delItemAlias(key){
+  const aliases=getItemAliases();
+  delete aliases[key];
+  localStorage.setItem('ngfItemAliases', JSON.stringify(aliases));
+  render();
+}
+// সব বিক্রিত মালের (মূল নামসহ, অ্যালিয়াসের আগে) অনন্য তালিকা - সহজে বেছে নেওয়ার জন্য
+function allRawItemNames(){
+  const set=new Set();
+  customers.forEach(c=>{ c=migrateCustomer(c); (c.sales||[]).forEach(s=>{ s.items.forEach(it=>{ if(!it.isOldDue) set.add(it.itemName); }); }); });
+  return Array.from(set).sort();
+}
+function itemSalesReport(){
+  const map={};
+  customers.forEach(c=>{ c=migrateCustomer(c); (c.sales||[]).forEach(s=>{
+    s.items.forEach(it=>{
+      if(it.isOldDue) return;
+      const nm=baseItemName(it.itemName);
+      if(!map[nm]) map[nm]={kg:0,taka:0,profit:0,bags:0};
+      map[nm].kg+=it.kg||0; map[nm].taka+=it.saleAmount||0; map[nm].profit+=it.profit||0; map[nm].bags+=it.bags||0;
+    });
+  }); });
+  return Object.entries(map).map(([name,d])=>({name,...d})).sort((a,b)=>b.taka-a.taka);
+}
+function creditBadge(c){
+  const t=c.creditTag;
+  if(t==='green') return '<span class="tag" style="background:#e6f0ea;color:#1f5f3f">🟢 নিরাপদ</span>';
+  if(t==='yellow') return '<span class="tag" style="background:#fdf6e3;color:#a5750f">🟡 মাঝারি</span>';
+  if(t==='red') return '<span class="tag" style="background:#fbe9e5;color:#b5432f">🔴 ঝুঁকিপূর্ণ</span>';
+  return '';
+}
+function now(){ return new Date().toLocaleString('bn-BD'); }
+function todayStr(){ return new Date().toLocaleDateString('bn-BD'); }
+function isToday(dateStr){
+  // dateStr saved as toLocaleString bn-BD; compare date part
+  try { return dateStr && dateStr.startsWith(new Date().toLocaleDateString('bn-BD')); } catch { return false; }
+}
+// timestamp দিয়ে আজ চেক
+function tsToday(ts){ if(!ts) return false; const d=new Date(ts),n=new Date(); return d.getDate()===n.getDate()&&d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear(); }
+// এই মাসের চেক
+function tsThisMonth(ts){ if(!ts) return false; const d=new Date(ts),n=new Date(); return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear(); }
+// তারিখ গ্রুপের লেবেল (আজ/গতকাল/তারিখ)
+function dateGroupLabel(ts){
+  if(!ts) return 'তারিখ নেই';
+  const d=new Date(ts),n=new Date();
+  const today=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+  const that=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  const diff=Math.round((today-that)/86400000);
+  if(diff===0) return 'আজ';
+  if(diff===1) return 'গতকাল';
+  return d.toLocaleDateString('bn-BD',{day:'numeric',month:'long',year:'numeric'});
+}
+function dateGroupKey(ts){ if(!ts) return '0'; const d=new Date(ts); return d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate(); }
+
+function switchTab(t){
+  activeTab=t;
+  ['Home','Customer','Due','Supplier','Stock','More'].forEach(n=>{
+    document.getElementById('nav'+n).className='';
+  });
+  const map={dashboard:'Home',customer:'Customer',due:'Due',supplier:'Supplier',stock:'Stock',more:'More'};
+  document.getElementById('nav'+map[t]).className='active';
+  render();
+}
+
+/* ---------- STOCK ---------- */
+function addStock(){
+  const name=document.getElementById('sName').value.trim();
+  const bw=parseFloat(document.getElementById('sBagWeight').value);
+  const bags=parseFloat(document.getElementById('sBags').value);
+  const cost=parseFloat(document.getElementById('sCost').value)||0;
+  const sale=parseFloat(document.getElementById('sSale').value);
+  if(!name||!bw||!bags||!sale){ alert('নাম, বস্তার ওজন, বিক্রয় দাম ও বস্তা সংখ্যা দিন'); return; }
+  stock.push({id:Date.now(),name,bagWeight:bw,costPrice:cost,salePrice:sale,totalBags:bags,totalKg:bw*bags});
+  save(); showAddStock=false; render();
+}
+function delStock(id){ if(confirm('ডিলিট করবেন?')){ stock=stock.filter(s=>s.id!==id); save(); render(); } }
+function adjustBags(id,d){
+  stock=stock.map(s=>s.id===id?{...s,totalBags:Math.max(0,s.totalBags+d),totalKg:Math.max(0,s.totalBags+d)*s.bagWeight}:s);
+  save(); render();
+}
+// স্টকের ওজন/দাম আপডেট করা
+function updateStockInfo(id){
+  const wt=parseFloat(document.getElementById('ew-'+id).value);
+  const cost=parseFloat(document.getElementById('ec-'+id).value);
+  const sale=parseFloat(document.getElementById('es-'+id).value);
+  if(!wt||wt<=0||!sale||sale<=0){ alert('ওজন ও বিক্রয় দাম ঠিকমতো দিন'); return; }
+  stock=stock.map(s=>{
+    if(s.id===id){ return {...s, bagWeight:wt, costPrice:cost||0, salePrice:sale, totalKg:s.totalBags*wt}; }
+    return s;
+  });
+  save(); render(); alert('স্টকের তথ্য আপডেট হয়েছে!');
+}
+
+/* ---------- CART (customer sale) ---------- */
+function setCartBags(id,val){
+  const v=parseFloat(val);
+  const it=stock.find(s=>s.id==id);
+  if(!v||v<=0){ delete cart[id]; }
+  else { if(!cart[id]) cart[id]={bags:v,rate:it.salePrice,weight:it.bagWeight}; else cart[id].bags=v; }
+  updateCartTotal();
+}
+function setCartRate(id,val){
+  const r=parseFloat(val);
+  const it=stock.find(s=>s.id==id);
+  if(cart[id]){ cart[id].rate=(!r||r<=0)?it.salePrice:r; }
+  updateCartTotal();
+}
+function setCartWeight(id,val){
+  const w=parseFloat(val);
+  const it=stock.find(s=>s.id==id);
+  if(cart[id]){ cart[id].weight=(!w||w<=0)?it.bagWeight:w; }
+  updateCartTotal();
+}
+function cartTotal(){ let t=0; Object.keys(cart).forEach(id=>{ const it=stock.find(s=>s.id==id); if(it) t+=cart[id].bags*cart[id].weight*cart[id].rate; }); return t; }
+function cartTotalKg(){ let k=0; Object.keys(cart).forEach(id=>{ const it=stock.find(s=>s.id==id); if(it) k+=cart[id].bags*cart[id].weight; }); return k; }
+function updateCartTotal(){ const el=document.getElementById('cartTotal'); if(el) el.innerText='৳'+bn(cartTotal()); const ek=document.getElementById('cartTotalKg'); if(ek) ek.innerText=bn(cartTotalKg())+' কেজি'; }
+
+/* ---------- CUSTOMER ---------- */
+function saveCustomer(){
+  const name=document.getElementById('cName').value.trim();
+  const mobile=document.getElementById('cMobile').value.trim();
+  const addr=document.getElementById('cAddr').value.trim();
+  const paidNow=parseFloat(document.getElementById('cPaid').value)||0;
+  const oldDue=parseFloat(document.getElementById('cOldDue').value)||0;
+  const myFreight=parseFloat(document.getElementById('cMyFreight').value)||0;
+  const custFreight=parseFloat(document.getElementById('cCustFreight').value)||0;
+  const freightDue=parseFloat(document.getElementById('cFreightDue').value)||0;
+  if(!selectedExisting && (!name||!mobile)){ alert('নাম ও মোবাইল দিন'); return; }
+  if(Object.keys(cart).length===0 && oldDue<=0 && paidNow<=0){ alert('মাল সিলেক্ট করুন, অথবা বকেয়া/জমা লিখুন'); return; }
+  // নতুন কাস্টমার হলে একই নম্বর আছে কিনা চেক করি
+  if(!selectedExisting){
+    function cleanMob(m){ return (m||'').replace(/[^0-9]/g,''); }
+    const newMob=cleanMob(mobile);
+    if(newMob.length>=6){
+      const existing=customers.find(c=>cleanMob(c.mobile)===newMob);
+      if(existing){
+        const ex=migrateCustomer(existing);
+        const t=custTotals(ex);
+        const msg='⚠️ এই নম্বরে ইতিমধ্যে কাস্টমার আছে:\n\n'
+          +'নাম: '+ex.name+'\n'
+          +'বাকি: ৳'+bn(custNetDue(ex))+'\n\n'
+          +'"OK" চাপলে এই বিক্রয় '+ex.name+'-এর সাথে যুক্ত হবে।\n'
+          +'"Cancel" চাপলে আলাদা নতুন কাস্টমার হিসেবে যোগ হবে।';
+        if(confirm(msg)){
+          // পুরনো কাস্টমারে যুক্ত করি
+          selectedExisting=existing.id;
+        }
+        // Cancel হলে selectedExisting=null থাকবে, নতুন কাস্টমার হবে
+      }
+    }
+  }
+  for(let id of Object.keys(cart)){ const it=stock.find(s=>s.id==id); if(cart[id].bags>it.totalBags){ alert(it.name+': শুধু '+it.totalBags+' বস্তা আছে'); return; } }
+
+  // বিক্রয়ের আইটেম ও হিসাব তৈরি + স্টক কমানো
+  let saleTotal=0, saleCost=0; const items=[];
+  stock=stock.map(it=>{
+    const cv=cart[it.id];
+    if(cv){ const b=cv.bags, rate=cv.rate, wt=cv.weight, kg=b*wt, sa=kg*rate, ca=kg*it.costPrice; saleTotal+=sa; saleCost+=ca;
+      items.push({itemName:it.name,bags:b,kg,rate:rate,weight:wt,saleAmount:sa,profit:sa-ca});
+      return {...it,totalBags:it.totalBags-b,totalKg:(it.totalBags-b)*it.bagWeight}; }
+    return it;
+  });
+
+  // বাকিতে দেওয়া ভাড়া - বিলে যোগ হবে, লাভে প্রভাব নেই
+  if(freightDue>0){
+    items.push({itemName:'🚚 গাড়ি ভাড়া (আমি দিয়েছি, ফেরত পাব)',bags:0,kg:0,saleAmount:freightDue,profit:0,isOldDue:true});
+    saleTotal+=freightDue;
+  }
+
+  const saleProfit=(saleTotal-saleCost-freightDue)-myFreight;
+
+  // নতুন বিক্রয় অবজেক্ট (যদি মাল থাকে)
+  let newSale=null;
+  if(items.length>0){
+    newSale={ id:Date.now(), ts:Date.now(), date:now(), items, totalSale:saleTotal, totalProfit:saleProfit, myFreight, custFreight };
+  }
+
+  const paymentEntry = paidNow>0 ? [{amount:paidNow,date:now(),ts:Date.now()}] : [];
+
+  // পুরাতন কাস্টমার সিলেক্ট করা থাকলে তার নিচে যোগ করি
+  if(selectedExisting){
+    customers=customers.map(c=>{
+      c=migrateCustomer(c);
+      if(c.id.toString()===selectedExisting.toString()){
+        const sales=(c.sales||[]).slice();
+        if(newSale) sales.push(newSale);
+        return {...c, sales, oldDue:(c.oldDue||0)+oldDue, payments:(c.payments||[]).concat(paymentEntry), address:c.address||addr };
+      }
+      return c;
+    });
+  } else {
+    // নতুন কাস্টমার তৈরি
+    customers.push({
+      id:Date.now(), name, mobile, address:addr,
+      sales:newSale?[newSale]:[],
+      oldDue:oldDue,
+      payments:paymentEntry,
+      firstTS:Date.now()
+    });
+  }
+
+  cart={}; selectedExisting=null; save(); showAddCustomer=false; render();
+}
+
+// বিদ্যমান কাস্টমারে নতুন বকেয়া যোগ করা
+function addCustomerDue(id){
+  const inp=document.getElementById('due-'+id);
+  const amt=parseFloat(inp.value);
+  if(!amt||amt<=0){ alert('টাকার পরিমাণ দিন'); return; }
+  customers=customers.map(c=>{ c=migrateCustomer(c); if(c.id.toString()===id.toString()){ return {...c, oldDue:(c.oldDue||0)+amt}; } return c; });
+  save(); render();
+}
+// একজন কাস্টমারের রসিদ টেক্সট বানানো
+function customerReceipt(c){
+  c=migrateCustomer(c);
+  const t=custTotals(c);
+  const bal=custNetDue(c);
+  let txt='🌾 NGF AGRO\n';
+  txt+='━━━━━━━━━━━━━━━\n';
+  txt+='কাস্টমার: '+c.name+'\n';
+  txt+='মোবাইল: '+c.mobile+'\n';
+  if(c.address) txt+='ঠিকানা: '+c.address+'\n';
+  txt+='━━━━━━━━━━━━━━━\n';
+  const salesSorted=(c.sales||[]).slice().sort((a,b)=>b.ts-a.ts);
+  salesSorted.forEach(s=>{
+    txt+='📅 '+s.date+'\n';
+    s.items.forEach(it=>{ txt+='  '+it.itemName+' '+it.bags+' বস্তা ('+bn(it.kg)+' কেজি) @৳'+(it.rate||'')+' = ৳'+bn(it.saleAmount)+'\n'; });
+    if(s.custFreight>0) txt+='  ভাড়া (কাস্টমার বহন): ৳'+bn(s.custFreight)+'\n';
+    txt+='  মোট ওজন: '+bn(s.items.reduce((a,it)=>a+(it.kg||0),0))+' কেজি\n';
+    txt+='  বিক্রয় মোট: ৳'+bn(s.totalSale)+'\n';
+    txt+='  ---\n';
+  });
+  if(c.oldDue>0) txt+='আগের বকেয়া: ৳'+bn(c.oldDue)+'\n';
+  txt+='━━━━━━━━━━━━━━━\n';
+  txt+='সব মিলিয়ে মোট: ৳'+bn(t.totalSale)+'\n';
+  txt+='মোট জমা: ৳'+bn(t.totalPaid)+'\n';
+  txt+='বাকি: ৳'+bn(bal)+'\n';
+  txt+='━━━━━━━━━━━━━━━\n';
+  txt+='ধন্যবাদ - NGF AGRO';
+  return txt;
+}
+function shareReceipt(id){
+  const c=customers.find(x=>x.id===id);
+  const txt=customerReceipt(c);
+  if(navigator.share){
+    navigator.share({title:'NGF AGRO রসিদ - '+c.name,text:txt}).catch(()=>{});
+  } else {
+    // ফলব্যাক: কপি করা
+    copyReceipt(id);
+  }
+}
+// কপি করা
+function copyReceipt(id){
+  const c=customers.find(x=>x.id===id);
+  const txt=customerReceipt(c);
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(txt).then(()=>alert('রসিদ কপি হয়েছে! এখন যেকোনো জায়গায় পেস্ট করুন।')).catch(()=>fallbackCopy(txt));
+  } else { fallbackCopy(txt); }
+}
+function fallbackCopy(txt){
+  const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); alert('রসিদ কপি হয়েছে!'); }catch{ alert(txt); }
+  document.body.removeChild(ta);
+}
+// একটা নির্দিষ্ট দিনের/বিক্রয়ের রসিদ কপি
+function copySaleReceipt(custId, saleId){
+  let c=customers.find(x=>x.id.toString()===custId.toString());
+  c=migrateCustomer(c);
+  const s=(c.sales||[]).find(x=>x.id.toString()===saleId.toString());
+  if(!s) return;
+  const bal=custNetDue(c);
+  let t='🌾 NGF AGRO\n';
+  t+='━━━━━━━━━━━━━━━\n';
+  t+='কাস্টমার: '+c.name+'\n';
+  t+='📅 তারিখ: '+s.date+'\n';
+  t+='━━━━━━━━━━━━━━━\n';
+  s.items.forEach(it=>{
+    if(it.isOldDue){ t+='• '+it.itemName+' = ৳'+bn(it.saleAmount)+'\n'; }
+    else { t+='• '+it.itemName+' '+it.bags+' বস্তা ('+bn(it.kg)+' কেজি) @৳'+(it.rate||'')+' = ৳'+bn(it.saleAmount)+'\n'; }
+  });
+  if(s.custFreight>0) t+='• ভাড়া (কাস্টমার বহন): ৳'+bn(s.custFreight)+'\n';
+  t+='━━━━━━━━━━━━━━━\n';
+  t+='মোট ওজন: '+bn(s.items.reduce((a,it)=>a+(it.kg||0),0))+' কেজি\n';
+  t+='এই দিনের মোট: ৳'+bn(s.totalSale)+'\n';
+  t+='সব মিলিয়ে বাকি: ৳'+bn(bal)+'\n';
+  t+='━━━━━━━━━━━━━━━\n';
+  t+='ধন্যবাদ - NGF AGRO';
+  if(navigator.share){ navigator.share({title:'NGF AGRO',text:t}).catch(()=>fallbackCopy(t)); }
+  else fallbackCopy(t);
+}
+// SMS এ পাঠানো
+function smsReceipt(id){
+  const c=customers.find(x=>x.id===id);
+  const txt=customerReceipt(c);
+  window.location.href='sms:'+c.mobile+'?body='+encodeURIComponent(txt);
+}
+// প্রিন্ট করা (কাগজে বা PDF) - সুন্দর রসিদ
+function printReceipt(id){
+  let c=customers.find(x=>x.id.toString()===id.toString());
+  c=migrateCustomer(c);
+  const t=custTotals(c);
+  const bal=custNetDue(c);
+  let r='<!DOCTYPE html><html lang="bn"><head><meta charset="UTF-8">';
+  r+='<meta name="viewport" content="width=device-width,initial-scale=1">';
+  r+='<title>রসিদ - '+c.name+'</title><style>';
+  r+='body{font-family:sans-serif;max-width:380px;margin:0 auto;padding:16px;color:#111}';
+  r+='.head{text-align:center;border-bottom:2px dashed #999;padding-bottom:10px;margin-bottom:10px}';
+  r+='.head h1{font-size:22px;color:#16a34a;margin-bottom:2px}.head p{font-size:11px;color:#666}';
+  r+='.info{font-size:13px;margin-bottom:10px}.info div{padding:2px 0}';
+  r+='.sale{border:1px solid #ddd;border-radius:6px;padding:8px;margin-bottom:8px;font-size:12px}';
+  r+='.sale .d{font-weight:700;color:#4338ca;margin-bottom:4px}';
+  r+='.row{display:flex;justify-content:space-between;padding:2px 0}';
+  r+='.tot{border-top:2px dashed #999;margin-top:10px;padding-top:10px;font-size:14px}';
+  r+='.bal{font-weight:700;font-size:16px;color:#dc2626}';
+  r+='.foot{text-align:center;border-top:2px dashed #999;margin-top:12px;padding-top:10px;font-size:11px;color:#666}';
+  r+='.btns{text-align:center;margin:16px 0}button{padding:10px 24px;font-size:15px;border:none;border-radius:8px;margin:4px;cursor:pointer}';
+  r+='.pbtn{background:#16a34a;color:#fff}.cbtn{background:#e5e7eb;color:#333}';
+  r+='@media print{.btns{display:none}body{padding:4px}}</style></head><body>';
+  r+='<div class="head"><h1>🌾 NGF AGRO</h1><p>ফিড ও কাঁচামাল</p></div>';
+  r+='<div class="info"><div><b>কাস্টমার:</b> '+c.name+'</div><div><b>মোবাইল:</b> '+c.mobile+'</div>';
+  if(c.address) r+='<div><b>ঠিকানা:</b> '+c.address+'</div>';
+  r+='</div>';
+  const salesSorted=(c.sales||[]).slice().sort((a,b)=>b.ts-a.ts);
+  salesSorted.forEach(s=>{
+    r+='<div class="sale"><div class="d">📅 '+s.date+'</div>';
+    s.items.forEach(it=>{ r+='<div class="row"><span>'+it.itemName+' ('+it.bags+' বস্তা, '+bn(it.kg)+' কেজি)</span><span>৳'+bn(it.saleAmount)+'</span></div>'; });
+    if(s.custFreight>0) r+='<div class="row"><span>ভাড়া (কাস্টমার)</span><span>৳'+bn(s.custFreight)+'</span></div>';
+    r+='<div class="row"><span>মোট ওজন</span><span>'+bn(s.items.reduce((a,it)=>a+(it.kg||0),0))+' কেজি</span></div>';
+    r+='<div class="row" style="font-weight:700"><span>বিক্রয় মোট</span><span>৳'+bn(s.totalSale)+'</span></div></div>';
+  });
+  if(c.oldDue>0) r+='<div class="sale"><div class="row"><span>আগের বকেয়া</span><span>৳'+bn(c.oldDue)+'</span></div></div>';
+  r+='<div class="tot">';
+  r+='<div class="row"><span>সব মিলিয়ে মোট:</span><b>৳'+bn(t.totalSale)+'</b></div>';
+  r+='<div class="row"><span>জমা:</span><b>৳'+bn(t.totalPaid)+'</b></div>';
+  r+='<div class="row bal"><span>বাকি:</span><span>৳'+bn(bal)+'</span></div></div>';
+  r+='<div class="foot">ধন্যবাদ আপনার ব্যবসার জন্য<br>NGF AGRO</div>';
+  r+='<div class="btns"><button class="pbtn" onclick="window.print()">🖨️ প্রিন্ট করুন</button><button class="cbtn" onclick="window.close()">✕ বন্ধ</button></div>';
+  r+='</body></html>';
+  const w=window.open('','_blank');
+  if(w){ w.document.write(r); w.document.close(); }
+  else { alert('প্রিন্ট পেজ খুলতে পারেনি। পপআপ অনুমতি দিন।'); }
+}
+function delSale(custId, saleId){
+  if(!confirm('এই বিক্রয়টি মুছবেন? স্টক ফেরত যাবে।')) return;
+  customers=customers.map(c=>{
+    c=migrateCustomer(c);
+    if(c.id.toString()===custId.toString()){
+      const sale=(c.sales||[]).find(s=>s.id.toString()===saleId.toString());
+      if(sale){ // স্টক ফেরত
+        sale.items.forEach(it=>{
+          stock=stock.map(st=>{ if(st.name===it.itemName){ const nb=st.totalBags+it.bags; return {...st,totalBags:nb,totalKg:nb*st.bagWeight}; } return st; });
+        });
+      }
+      return {...c, sales:(c.sales||[]).filter(s=>s.id.toString()!==saleId.toString())};
+    }
+    return c;
+  });
+  save(); render();
+}
+function delCustomer(id){ if(confirm('ডিলিট করবেন?')){ customers=customers.filter(c=>c.id!==id); save(); render(); } }
+function addCustomerPayment(id){
+  const inp=document.getElementById('pay-'+id); const amt=parseFloat(inp.value);
+  if(amt>0){ customers=customers.map(c=>{ c=migrateCustomer(c); if(c.id.toString()===id.toString()){ return {...c,payments:[...(c.payments||[]),{amount:amt,date:now(),ts:Date.now()}]}; } return c; }); save(); render(); }
+}
+
+/* ---------- SUPPLIER (যাদের কাছে আমি টাকা পাবো / যাদের আমি দিবো) ---------- */
+function saveSupplier(){
+  const name=document.getElementById('spName').value.trim();
+  const mobile=document.getElementById('spMobile').value.trim();
+  const desc=document.getElementById('spDesc').value.trim();
+  const amount=parseFloat(document.getElementById('spAmount').value);
+  const paid=parseFloat(document.getElementById('spPaid').value)||0;
+  if(!name||!amount){ alert('নাম ও মোট টাকা দিন'); return; }
+  const payments = paid>0 ? [{amount:paid,date:now()}] : [];
+  suppliers.push({id:Date.now(),name,mobile,desc,totalAmount:amount,totalPaid:paid,payments,date:now()});
+  save(); showAddSupplier=false; render();
+}
+function delSupplier(id){ if(confirm('ডিলিট করবেন?')){ suppliers=suppliers.filter(s=>s.id!==id); save(); render(); } }
+function addSupplierPayment(id){
+  const inp=document.getElementById('sppay-'+id); const amt=parseFloat(inp.value);
+  if(amt>0){ suppliers=suppliers.map(s=>{ if(s.id===id){ const p=s.payments||[]; return {...s,totalPaid:s.totalPaid+amt,payments:[...p,{amount:amt,date:now()}]}; } return s; }); save(); render(); }
+}
+// পুরনো সাপ্লায়ার থেকে নতুন মাল/দেনা যোগ
+function addSupplierDue(id){
+  const amtInp=document.getElementById('spdue-'+id);
+  const descInp=document.getElementById('spduedesc-'+id);
+  const amt=parseFloat(amtInp.value);
+  if(!amt||amt<=0){ alert('টাকার পরিমাণ দিন'); return; }
+  const desc=(descInp.value||'').trim();
+  suppliers=suppliers.map(s=>{
+    if(s.id===id){
+      const purchases=s.purchases||[{desc:s.desc,amount:s.totalAmount,date:s.date}];
+      return {...s, totalAmount:s.totalAmount+amt, purchases:[...purchases,{desc:desc||'নতুন মাল',amount:amt,date:now()}]};
+    }
+    return s;
+  });
+  save(); render();
+}
+
+/* ---------- TOGGLES ---------- */
+function toggleSalesReport(){ showSalesReport=!showSalesReport; render(); }
+function toggleAddStock(){ showAddStock=!showAddStock; render(); }
+function toggleAddCustomer(){ showAddCustomer=!showAddCustomer; if(showAddCustomer){ cart={}; selectedExisting=null; existSearch=''; goodsSearch=''; } render(); }
+function renderExistResults(){
+  if(!existSearch.trim()) return '';
+  const q=existSearch.toLowerCase();
+  const matches=customers.filter(c=>c.name.toLowerCase().includes(q)||(c.mobile||'').includes(q)).slice(0,5);
+  let h='';
+  if(matches.length===0) h+=`<div class="xs gray">কেউ পাওয়া যায়নি — নিচে নতুন করে লিখুন</div>`;
+  else matches.forEach(c=>{
+    const sel=selectedExisting&&selectedExisting.toString()===c.id.toString();
+    const bal=custNetDue(c);
+    const lastDate=dateGroupLabel(custLastTS(c));
+    h+=`<div onclick="pickExisting('${c.id}')" style="padding:8px;border-radius:8px;margin-bottom:4px;cursor:pointer;background:${sel?'#1f5f3f':'#f8f3e8'};color:${sel?'#fff':'#111'};border:1px solid ${sel?'#1f5f3f':'var(--line)'}">
+      <div class="between"><span class="sm bold">${c.name}</span>${sel?' ✓':(!sel?creditBadge(c):'')}</div>
+      <div class="xs" style="opacity:.85">📱${c.mobile}${c.address?' • 📍'+c.address:''}</div>
+      <div class="xs between mt" style="opacity:.9"><span>📅 শেষ লেনদেন: ${lastDate}</span><span class="${bal>0?'bold':''}" style="color:${sel?'#fff':(bal>0?'#b5432f':'#1f5f3f')}">${bal>0?'বাকি ৳'+bn(bal):'✓ পরিশোধ'}</span></div>
+    </div>`;
+  });
+  return h;
+}
+// শুধু ফলাফল আপডেট করি, পুরো render নয় (ফোকাস রক্ষা)
+function doExistSearch(v){ existSearch=v; const el=document.getElementById('existResults'); if(el) el.innerHTML=renderExistResults(); }
+// মালের তালিকা (সার্চ সহ) - ফোকাস রক্ষা করে
+function renderGoodsList(){
+  let avail=stock.filter(s=>s.totalBags>0);
+  if(goodsSearch.trim()){ const q=goodsSearch.toLowerCase(); avail=avail.filter(s=>s.name.toLowerCase().includes(q)); }
+  if(stock.filter(s=>s.totalBags>0).length===0) return `<p class="center gray xs" style="padding:8px">স্টকে মাল নেই (শুধু বকেয়া দিয়েও যোগ করা যাবে)</p>`;
+  if(avail.length===0) return `<p class="center gray xs" style="padding:8px">"${goodsSearch}" নামে কোনো মাল নেই</p>`;
+  let h='';
+  avail.forEach(it=>{
+    const cv=cart[it.id];
+    h+=`<div style="background:#f9fafb;padding:8px;border-radius:6px;margin-bottom:6px">
+      <div class="between"><div class="sm bold">${it.name}</div><div class="xs gray">আছে ${it.totalBags} বস্তা</div></div>
+      <div class="flex mt" style="gap:6px">
+        <input type="number" placeholder="বস্তা" value="${cv?cv.bags:''}" oninput="setCartBags(${it.id},this.value)" style="flex:1;margin-bottom:0">
+        <input type="number" placeholder="ওজন ${it.bagWeight}kg" value="${cv&&cv.weight!==it.bagWeight?cv.weight:''}" oninput="setCartWeight(${it.id},this.value)" style="flex:1;margin-bottom:0;border-color:#2563eb">
+        <input type="number" placeholder="রেট ৳${it.salePrice}" value="${cv&&cv.rate!==it.salePrice?cv.rate:''}" oninput="setCartRate(${it.id},this.value)" style="flex:1;margin-bottom:0;border-color:#f97316">
+      </div>
+      <div class="xs gray mt">ওজন ও রেট খালি রাখলে স্টকের মান ধরা হবে</div>
+    </div>`;
+  });
+  return h;
+}
+function doGoodsSearch(v){ goodsSearch=v; const el=document.getElementById('goodsListBox'); if(el) el.innerHTML=renderGoodsList(); }
+function pickExisting(id){ selectedExisting=id; existSearch=''; render(); }
+function clearExisting(){ selectedExisting=null; render(); }
+function toggleAddSupplier(){ showAddSupplier=!showAddSupplier; render(); }
+function toggleStock(id){ expandedStock=expandedStock===id?null:id; render(); }
+function toggleCustomer(id){ expandedCustomer=expandedCustomer===id?null:id; render(); }
+function toggleSupplier(id){ expandedSupplier=expandedSupplier===id?null:id; render(); }
+function doSearch(v){ custSearch=v; const list=document.getElementById('custList'); if(list) list.innerHTML=renderCustomerList(); }
+
+/* ---------- BACKUP ---------- */
+function exportJSON(){
+  const data=JSON.stringify({stock,customers,suppliers,withdrawals},null,2);
+  dl(data,'NGF_AGRO_backup_'+new Date().toISOString().slice(0,10)+'.json','application/json');
+}
+function exportTXT(){
+  const totalDue=customers.reduce((s,c)=>s+custNetDue(c),0);
+  const myDebt=suppliers.reduce((s,sp)=>s+(sp.totalAmount-sp.totalPaid),0);
+  const totalProfit=customers.reduce((s,c)=>s+custTotals(c).totalProfit,0);
+  const totalSaleAll=customers.reduce((s,c)=>s+custTotals(c).totalSale,0);
+
+  let t='';
+  t+='===============================\n';
+  t+='        NGF AGRO\n';
+  t+='     হিসাবের রিপোর্ট\n';
+  t+='  তারিখ: '+now()+'\n';
+  t+='===============================\n\n';
+
+  t+='■ সারসংক্ষেপ\n';
+  t+='-------------------------------\n';
+  t+='মোট বিক্রয়      : ৳'+bn(totalSaleAll)+'\n';
+  t+='মোট লাভ        : ৳'+bn(totalProfit)+'\n';
+  t+='কাস্টমারের কাছে পাওনা : ৳'+bn(totalDue)+'\n';
+  t+='সাপ্লায়ারকে দেনা   : ৳'+bn(myDebt)+'\n\n';
+
+  t+='===============================\n';
+  t+='■ কাস্টমার তালিকা ('+customers.length+' জন)\n';
+  t+='===============================\n';
+  if(customers.length===0) t+='(কোনো কাস্টমার নেই)\n';
+  customers.forEach(c=>{
+    c=migrateCustomer(c);
+    const ct=custTotals(c);
+    const bal=custNetDue(c);
+    t+='\n-------------------------------\n';
+    t+='নাম    : '+c.name+'\n';
+    t+='মোবাইল : '+c.mobile+'\n';
+    if(c.address) t+='ঠিকানা : '+c.address+'\n';
+    (c.sales||[]).slice().sort((a,b)=>b.ts-a.ts).forEach(s=>{
+      t+='  📅 '+s.date+':\n';
+      s.items.forEach(it=>{ t+='    - '+it.itemName+': '+it.bags+' বস্তা ('+bn(it.kg)+' কেজি) = ৳'+bn(it.saleAmount)+'\n'; });
+    });
+    if(c.oldDue>0) t+='  আগের বকেয়া: ৳'+bn(c.oldDue)+'\n';
+    t+='মোট: ৳'+bn(ct.totalSale)+' | জমা: ৳'+bn(ct.totalPaid)+' | বাকি: ৳'+bn(bal)+'\n';
+  });
+
+  t+='\n===============================\n';
+  t+='■ সাপ্লায়ার তালিকা ('+suppliers.length+' জন)\n';
+  t+='===============================\n';
+  if(suppliers.length===0) t+='(কোনো সাপ্লায়ার নেই)\n';
+  suppliers.forEach(s=>{
+    const bal=s.totalAmount-s.totalPaid;
+    t+='\n-------------------------------\n';
+    t+='নাম    : '+s.name+'\n';
+    if(s.mobile) t+='মোবাইল : '+s.mobile+'\n';
+    if(s.desc) t+='বিবরণ  : '+s.desc+'\n';
+    t+='মোট দেনা: ৳'+bn(s.totalAmount)+' | পরিশোধ: ৳'+bn(s.totalPaid)+' | বাকি: ৳'+bn(bal)+'\n';
+  });
+
+  t+='\n===============================\n';
+  t+='■ বর্তমান স্টক\n';
+  t+='===============================\n';
+  if(stock.length===0) t+='(কোনো মাল নেই)\n';
+  stock.forEach(it=>{ t+='- '+it.name+': '+it.totalBags+' বস্তা ('+bn(it.totalKg)+' কেজি) | বিক্রয় ৳'+it.salePrice+'/কেজি\n'; });
+
+  t+='\n===============================\n';
+  t+='   NGF AGRO • আপনার ব্যবসার সঙ্গী\n';
+  t+='===============================\n';
+
+  dl(t,'NGF_AGRO_রিপোর্ট_'+new Date().toISOString().slice(0,10)+'.txt','text/plain');
+}
+function dl(content,fname,type){
+  const bom='\uFEFF';
+  const blob=new Blob([bom+content],{type:type+';charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=fname; a.click();
+}
+function importJSON(e){
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{ try{ const d=JSON.parse(ev.target.result); stock=d.stock||[]; customers=d.customers||[]; suppliers=d.suppliers||[]; withdrawals=d.withdrawals||[]; save(); render(); alert('ডাটা ফিরে এসেছে!'); }catch{ alert('ফাইল ঠিক নেই'); } };
+  r.readAsText(f);
+}
+
+/* ============ RENDER ============ */
+function render(){
+  const sub={dashboard:'আজকের হিসাব ও সারসংক্ষেপ',customer:'যাদের কাছে আমি পাবো',due:'সব বকেয়ার তালিকা',supplier:'যাদের আমি টাকা দিবো',stock:'মালের মজুদ',more:'ব্যাকআপ ও সেটিংস'};
+  document.getElementById('headerSub').innerText=sub[activeTab]||'বিজনেস ম্যানেজমেন্ট';
+  const c=document.getElementById('content');
+  if(activeTab==='dashboard') c.innerHTML=renderDashboard();
+  else if(activeTab==='customer') c.innerHTML=renderCustomer();
+  else if(activeTab==='due') c.innerHTML=renderDue();
+  else if(activeTab==='supplier') c.innerHTML=renderSupplier();
+  else if(activeTab==='stock') c.innerHTML=renderStock();
+  else if(activeTab==='more') c.innerHTML=renderMore();
+  updateCartTotal();
+}
+
+function renderDashboard(){
+  // সব বিক্রয় একত্র করি (প্রতিটা sale ধরে হিসাব)
+  let todaySaleAmt=0, todayProfit=0, monthProfit=0, monthSaleAmt=0, totalProfit=0, totalMyFreight=0, todaySaleCount=0;
+  customers.forEach(c=>{
+    c=migrateCustomer(c);
+    (c.sales||[]).forEach(s=>{
+      totalProfit+=s.totalProfit||0;
+      totalMyFreight+=s.myFreight||0;
+      if(tsToday(s.ts)){ todaySaleAmt+=s.totalSale||0; todayProfit+=s.totalProfit||0; todaySaleCount++; }
+      if(tsThisMonth(s.ts)){ monthSaleAmt+=s.totalSale||0; monthProfit+=s.totalProfit||0; }
+    });
+  });
+  let todayCollected=0;
+  customers.forEach(c=>{ c=migrateCustomer(c); (c.payments||[]).forEach(p=>{ if(isToday(p.date)) todayCollected+=p.amount; }); });
+
+  const totalDue=customers.reduce((s,c)=>s+custNetDue(c),0);
+  const myDebt=suppliers.reduce((s,sp)=>s+(sp.totalAmount-sp.totalPaid),0);
+  const stockValue=stock.reduce((s,it)=>s+it.totalKg*it.salePrice,0);
+
+  let h='';
+  // আজকের হিসাব
+  h+='<div class="box-orange box"><div class="bold orange mb">📅 আজকের হিসাব</div>';
+  h+='<div class="grid2">';
+  h+='<div class="stat" style="background:#fff7ed"><div class="num orange">৳'+bn(todaySaleAmt)+'</div><div class="lbl gray">আজকের বিক্রয়</div></div>';
+  h+='<div class="stat" style="background:#fff7ed"><div class="num green">৳'+bn(todayProfit)+'</div><div class="lbl gray">আজকের লাভ</div></div>';
+  h+='</div>';
+  h+='<div class="stat mt" style="background:#fff7ed"><div class="num blue">৳'+bn(todayCollected)+'</div><div class="lbl gray">আজ জমা পেয়েছি</div></div>';
+  h+='<div class="xs gray center mt">আজ '+todaySaleCount+' টি বিক্রয় হয়েছে</div>';
+  h+='</div>';
+
+  // লাভের হিসাব - তিন রকম
+  h+='<div class="box box-green"><div class="bold green mb">📈 লাভের হিসাব</div><div class="grid2">';
+  h+='<div class="stat" style="background:#dcfce7"><div class="num green">৳'+bn(todayProfit)+'</div><div class="lbl gray">আজকের লাভ</div></div>';
+  h+='<div class="stat" style="background:#dcfce7"><div class="num green">৳'+bn(monthProfit)+'</div><div class="lbl gray">এই মাসের লাভ</div></div>';
+  h+='</div>';
+  h+='<div class="stat mt" style="background:#bbf7d0"><div class="num green">৳'+bn(totalProfit)+'</div><div class="lbl gray">সব মিলিয়ে মোট লাভ (শুরু থেকে)</div></div>';
+  h+='<div class="xs gray center mt">এই মাসের বিক্রয়: ৳'+bn(monthSaleAmt)+'</div>';
+  if(totalMyFreight>0) h+='<div class="xs red center mt">🚚 মোট ভাড়া খরচ (লাভ থেকে বাদ): ৳'+bn(totalMyFreight)+'</div>';
+  const totalWd=withdrawals.reduce((s,w)=>s+w.amount,0);
+  h+='<div class="between xs mt" style="border-top:1px dashed #cbe5d2;padding-top:6px"><span class="gray">💼 মালিকের উত্তোলন:</span><b class="orange">৳'+bn(totalWd)+'</b></div>';
+  h+='<div class="between sm bold"><span>হাতে থাকা লাভ:</span><b class="green">৳'+bn(totalProfit-totalWd)+'</b></div>';
+  h+='</div>';
+
+  // ৩০+ দিন খোঁজ নেই এমন বকেয়াদার
+  const inactive=customers.filter(c=>custNetDue(c)>0 && daysSince(custLastTS(c))>=custLimit(c));
+  if(inactive.length>0){
+    h+='<div class="box" style="background:#fdecea;border:1px solid #f5c6c0;border-left:4px solid var(--red)">';
+    h+='<div class="bold red sm">⏰ '+inactive.length+' জন বকেয়াদারের অনেকদিন খোঁজ নেই!</div>';
+    inactive.slice(0,5).forEach(c=>{
+      h+='<div class="between xs mt"><span>'+c.name+' ('+daysSince(custLastTS(c))+' দিন)</span><span class="red bold">৳'+bn(custNetDue(c))+'</span></div>';
+    });
+    h+='<button class="btn btn-red btn-sm mt" style="width:100%" onclick="switchTab(\'due\')">বকেয়া তালিকায় যান</button>';
+    h+='</div>';
+  }
+
+  // মাসিক লাভের খাতা
+  const months=monthlyProfits();
+  if(months.length>0){
+    h+='<div class="box box-green"><div class="bold green sm mb">📅 মাসিক লাভের খাতা <span class="xs gray">(তারিখে চাপুন)</span></div>';
+    months.forEach(mo=>{
+      const open=expandedMonth===mo.key;
+      h+='<div onclick="toggleMonth(\''+mo.key+'\')" style="cursor:pointer;padding:4px 0;border-bottom:1px solid #cfe3d7"><div class="between xs"><span>'+(open?'▼ ':'▶ ')+mo.label+'</span><span><span class="gray">বিক্রয় ৳'+bn(mo.sale)+'</span> | <b class="green">লাভ ৳'+bn(mo.profit)+'</b></span></div></div>';
+      if(open){
+        h+='<div style="background:#fbfdfb;border-radius:6px;padding:6px;margin:4px 0 8px" class="xs">';
+        const dayKeys=Object.keys(mo.days).sort().reverse();
+        dayKeys.forEach(dk=>{
+          const day=mo.days[dk];
+          h+='<div class="between" style="padding:3px 0"><span class="gray">'+day.label+'</span><span><span class="gray">৳'+bn(day.sale)+'</span> | <b class="green">লাভ ৳'+bn(day.profit)+'</b></span></div>';
+        });
+        h+='</div>';
+      }
+    });
+    h+='</div>';
+  }
+
+  // পাওনা-দেনা
+  h+='<div class="grid2">';
+  h+='<div class="stat" style="background:#fee2e2"><div class="num red">৳'+bn(totalDue)+'</div><div class="lbl gray">কাস্টমারের কাছে পাওনা</div></div>';
+  h+='<div class="stat" style="background:#fef9c3"><div class="num orange">৳'+bn(myDebt)+'</div><div class="lbl gray">সাপ্লায়ারকে দেনা</div></div>';
+  h+='</div>';
+  h+='<div class="stat mt" style="background:#eff6ff"><div class="num blue">৳'+bn(stockValue)+'</div><div class="lbl gray">স্টকের মূল্য</div></div>';
+
+  // টপ বাকিদার
+  const dueList=customers.filter(c=>custNetDue(c)>0).sort((a,b)=>custNetDue(b)-custNetDue(a)).slice(0,5);
+  h+='<div class="divider"></div>';
+  h+='<div class="bold sm mb">🔴 সবচেয়ে বেশি বাকি যাদের</div>';
+  if(dueList.length===0){ h+='<p class="xs gray center" style="padding:8px">কোনো বাকি নেই 🎉</p>'; }
+  else { dueList.forEach(c=>{ const bal=custNetDue(c); h+='<div class="between" style="padding:8px;background:#f9fafb;border-radius:6px;margin-bottom:5px"><div><div class="sm bold">'+c.name+'</div><div class="xs gray">📱'+c.mobile+'</div></div><div class="red bold">৳'+bn(bal)+'</div></div>'; }); }
+
+  h+='<button class="btn btn-green mt" onclick="switchTab(\'customer\')">+ নতুন বিক্রয় / কাস্টমার</button>';
+  return h;
+}
+
+function renderStock(){
+  let h='';
+  // মাসভিত্তিক সেরা বিক্রিত মাল - প্রতিটা মাস আলাদা, ক্লিক করলে খোলে
+  const monthly=monthlyTopSelling();
+  h+=`<div class="box box-green"><div class="between mb"><span class="bold green">🏆 মাসভিত্তিক সেরা বিক্রিত মাল</span><button class="btn btn-green btn-sm" onclick="exportMonthlyTopSelling()">📄 প্রিন্ট/টেক্সট</button></div>`;
+  if(monthly.length===0) h+=`<p class="xs gray center" style="padding:8px">এখনো কোনো বিক্রয় নেই</p>`;
+  else monthly.forEach(mo=>{
+    const open=expandedTopMonth===mo.key;
+    h+=`<div onclick="toggleTopMonth('${mo.key}')" style="cursor:pointer;padding:6px 0;border-bottom:1px solid #cfe3d7"><div class="between sm bold"><span>${open?'▼':'▶'} ${mo.label}</span><span class="gray xs">${mo.items.length} ধরনের মাল</span></div></div>`;
+    if(open){
+      h+=`<div style="padding:4px 0 8px">`;
+      mo.items.forEach((r,i)=>{
+        h+=`<div class="between xs" style="padding:4px 0;border-bottom:1px solid #f0ece0">
+          <span><b>${i+1}.</b> ${r.name}</span>
+          <span><b class="green">${bn(r.kg)} কেজি</b> <span class="gray">(${r.bags} বস্তা, ৳${bn(r.taka)})</span></span>
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+  });
+  h+=`</div>`;
+  h+=`<button class="btn btn-purple mb" onclick="toggleSalesReport()">${showSalesReport?'✕ রিপোর্ট বন্ধ করুন':'📊 সব সময়ের বিক্রয় রিপোর্ট দেখুন'}</button>`;
+  if(showSalesReport){
+    const report=itemSalesReport();
+    h+=`<div class="box box-blue">`;
+    h+=`<button class="btn btn-blue btn-sm mb" onclick="exportAllTimeSalesReport()">📄 প্রিন্ট/টেক্সট ডাউনলোড</button>`;
+    if(report.length===0) h+=`<p class="center gray sm" style="padding:12px">এখনো কোনো বিক্রয় নেই</p>`;
+    else report.forEach((r,i)=>{
+      h+=`<div class="between" style="padding:6px 0;border-bottom:1px solid var(--line)">
+        <div><span class="bold sm">${i+1}. ${r.name}</span><div class="xs gray">${r.bags} বস্তা • ${bn(r.kg)} কেজি</div></div>
+        <div style="text-align:right"><div class="bold blue">৳${bn(r.taka)}</div><div class="xs green">লাভ ৳${bn(r.profit)}</div></div>
+      </div>`;
+    });
+    h+=`</div>`;
+  }
+  h+=`<button class="btn btn-blue" onclick="toggleAddStock()">${showAddStock?'✕ বাতিল':'+ নতুন মাল যোগ করুন'}</button>`;
+  if(showAddStock){
+    h+=`<div class="box box-blue">
+      <input id="sName" placeholder="মালের নাম (যেমন: ভুট্টা)">
+      <div class="grid2">
+        <input id="sBagWeight" type="number" placeholder="প্রতি বস্তা কত কেজি">
+        <input id="sBags" type="number" placeholder="মোট কত বস্তা">
+      </div>
+      <div class="grid2">
+        <input id="sCost" type="number" placeholder="কেনা দাম (কেজি)">
+        <input id="sSale" type="number" placeholder="বিক্রয় দাম (কেজি)">
+      </div>
+      <button class="btn btn-blue" onclick="addStock()">যোগ করুন</button>
+    </div>`;
+  }
+  if(stock.length===0) h+=`<p class="center gray sm" style="padding:24px">কোনো মাল নেই</p>`;
+  else stock.forEach(it=>{
+    h+=`<div class="item"><div class="item-head" onclick="toggleStock(${it.id})">
+      <div><div class="bold sm">${it.name}</div><div class="xs gray">${it.totalBags} বস্তা | ${bn(it.totalKg)} কেজি | ৳${it.salePrice}/কেজি</div></div>
+      <span>${expandedStock===it.id?'▲':'▼'}</span></div>`;
+    if(expandedStock===it.id){
+      h+=`<div class="item-body">
+        <p>প্রতি বস্তা: ${it.bagWeight} কেজি</p>
+        <p>কেনা: ৳${it.costPrice}/কেজি | বিক্রয়: ৳${it.salePrice}/কেজি</p>
+        <p class="green bold">লাভ: ৳${it.salePrice-it.costPrice}/কেজি</p>
+        <div class="flex mt">
+          <button class="btn btn-red btn-sm" style="flex:1" onclick="adjustBags(${it.id},-1)">−১ বস্তা</button>
+          <button class="btn btn-green btn-sm" style="flex:1" onclick="adjustBags(${it.id},1)">+১ বস্তা</button>
+        </div>
+        <div class="box box-blue xs mt">
+          <div class="bold blue mb">✏️ স্টকের তথ্য ঠিক করুন</div>
+          <div class="xs gray mb">ওজন কম/বেশি হলে বা দাম বদলালে এখানে ঠিক করুন</div>
+          <div class="flex" style="gap:6px;margin-bottom:6px">
+            <input type="number" id="ew-${it.id}" placeholder="বস্তার ওজন (${it.bagWeight})" value="${it.bagWeight}" style="flex:1;margin-bottom:0">
+            <input type="number" id="ec-${it.id}" placeholder="কেনা ৳${it.costPrice}" value="${it.costPrice}" style="flex:1;margin-bottom:0">
+          </div>
+          <div class="flex" style="gap:6px">
+            <input type="number" id="es-${it.id}" placeholder="বিক্রয় ৳${it.salePrice}" value="${it.salePrice}" style="flex:1;margin-bottom:0">
+            <button class="btn btn-blue btn-sm" onclick="updateStockInfo(${it.id})">সেভ</button>
+          </div>
+        </div>
+        <button class="btn btn-red btn-sm mt" style="width:100%" onclick="delStock(${it.id})">ডিলিট</button>
+      </div>`;
+    }
+    h+=`</div>`;
+  });
+  return h;
+}
+
+function renderCustomer(){
+  let h=`<button class="btn btn-green" onclick="toggleAddCustomer()">${showAddCustomer?'✕ বাতিল':'+ নতুন বিক্রয় / কাস্টমার'}</button>`;
+  if(showAddCustomer){
+    h+=`<div class="box box-green">`;
+    // পুরাতন কাস্টমার সিলেক্ট অপশন
+    if(customers.length>0){
+      h+=`<div class="box box-blue" style="padding:8px">
+        <div class="bold blue xs mb">👤 পুরাতন কাস্টমার? খুঁজে সিলেক্ট করুন</div>
+        <input id="existSearchInput" placeholder="🔍 নাম বা মোবাইল লিখুন" value="${existSearch}" oninput="doExistSearch(this.value)" style="margin-bottom:6px">
+        <div id="existResults">${renderExistResults()}</div>`;
+      if(selectedExisting){
+        const sc=customers.find(c=>c.id.toString()===selectedExisting.toString());
+        h+=`<div class="box box-green xs" style="padding:6px;margin-top:4px">✓ নির্বাচিত: <b>${sc.name}</b> (${sc.mobile})<br><span class="gray">নিচে শুধু নতুন মাল ও জমা লিখুন, নাম আবার লাগবে না</span> <span onclick="clearExisting()" style="color:#dc2626;cursor:pointer">✕ বাতিল</span></div>`;
+      }
+      h+=`</div>`;
+    }
+    // নতুন কাস্টমার হলে নাম/মোবাইল (সিলেক্ট করা থাকলে লুকানো)
+    if(!selectedExisting){
+      h+=`<input id="cName" placeholder="কাস্টমারের নাম">
+      <input id="cMobile" type="tel" placeholder="মোবাইল নম্বর">
+      <input id="cAddr" placeholder="ঠিকানা">`;
+    } else {
+      h+=`<input id="cName" type="hidden" value="x"><input id="cMobile" type="hidden" value="x"><input id="cAddr" type="hidden" value="">`;
+    }
+    h+=`<div style="background:#fff;padding:8px;border-radius:6px;border:1px solid #bbf7d0">
+        <div class="bold sm mb">📦 মালের বিবরণ (কত বস্তা নিয়েছে লিখুন) — <span class="gray xs">ঐচ্ছিক</span></div>
+        <input id="goodsSearchInput" placeholder="🔍 মালের নাম লিখে খুঁজুন" value="${goodsSearch}" oninput="doGoodsSearch(this.value)" style="margin-bottom:6px">
+        <div id="goodsListBox">${renderGoodsList()}</div>
+    </div>
+      <input id="cOldDue" type="number" placeholder="আগের পুরাতন বকেয়া (থাকলে লিখুন, নাহলে খালি)" style="margin-top:8px;border-color:#f97316">
+      <div class="box box-blue mt" style="padding:8px">
+        <div class="bold blue xs mb">🚚 ভাড়ার হিসাব (থাকলে লিখুন)</div>
+        <input id="cMyFreight" type="number" placeholder="আমি যে ভাড়া দিয়েছি (লাভ থেকে বাদ যাবে)" style="border-color:#dc2626;margin-bottom:6px">
+        <input id="cCustFreight" type="number" placeholder="কাস্টমার যে ভাড়া দিয়েছে (শুধু স্লিপে লেখা)" style="border-color:#16a34a;margin-bottom:6px">
+        <input id="cFreightDue" type="number" placeholder="ভাড়া আমি দিলাম, কাস্টমার পরে দেবে (বিলে যোগ হবে)" style="border-color:#a855f7;margin-bottom:0">
+      </div>
+      <div class="box box-yellow mt">
+        <div class="between bold"><span>নতুন মালের টাকা:</span><span class="green" id="cartTotal">৳০</span></div>
+        <div class="between sm"><span class="gray">মোট ওজন:</span><span class="blue bold" id="cartTotalKg">০ কেজি</span></div>
+      </div>
+      <input id="cPaid" type="number" placeholder="এখন কত টাকা জমা দিল (না দিলে খালি রাখুন)">
+      <button class="btn btn-green" onclick="saveCustomer()">সেভ করুন</button>
+    </div>`;
+  }
+  // search
+  if(customers.length>0){
+    h+=`<input placeholder="🔍 নাম বা মোবাইল দিয়ে খুঁজুন" value="${custSearch}" oninput="doSearch(this.value)" style="margin-top:10px">`;
+  }
+  h+=`<div id="custList">${renderCustomerList()}</div>`;
+  return h;
+}
+
+function renderOneCustomer(cu){
+    cu=migrateCustomer(cu);
+    const t=custTotals(cu);
+    const bal=custNetDue(cu);
+    const saleCount=(cu.sales||[]).length;
+    let h='';
+    h+=`<div class="item"><div class="item-head" onclick="toggleCustomer(${cu.id})">
+      <div style="flex:1"><div class="bold sm">${cu.name} ${creditBadge(cu)} ${bal>0?'<span class="tag tag-red">বাকি</span>':'<span class="tag tag-green">পরিশোধ</span>'}</div>
+      <div class="xs gray">📱 ${cu.mobile}${cu.address?' | 📍 '+cu.address:''}</div>
+      <div class="xs gray">${saleCount} টি বিক্রয়${cu.oldDue>0?' | আগের বকেয়া আছে':''}</div>
+      <div class="flex xs mt"><span class="blue">মোট: ৳${bn(t.totalSale)}</span><span class="${bal>0?'red bold':'green'}">বাকি: ৳${bn(bal)}</span></div></div>
+      <span>${expandedCustomer===cu.id?'▲':'▼'}</span></div>`;
+    if(expandedCustomer===cu.id){
+      h+=`<div class="item-body">`;
+      // প্রতিটা বিক্রয় আলাদা তারিখে
+      if(saleCount===0 && cu.oldDue<=0){ h+=`<p class="xs gray">কোনো বিক্রয় নেই</p>`; }
+      const salesSorted=(cu.sales||[]).slice().sort((a,b)=>b.ts-a.ts);
+      salesSorted.forEach(s=>{
+        h+=`<div style="border:1px solid #e5e7eb;border-radius:6px;padding:8px;margin-bottom:6px">
+          <div class="between xs bold" style="color:#4338ca;margin-bottom:4px">📅 ${s.date} <span class="gray" style="font-weight:400">${dateGroupLabel(s.ts)}</span></div>`;
+        s.items.forEach(it=>{ h+=`<div class="between xs" style="border-bottom:1px solid #f0f0f0;padding-bottom:3px;margin-bottom:3px"><span>${it.itemName} (${it.bags} বস্তা=${bn(it.kg)} কেজি) <span class="gray">@৳${it.rate||''}</span></span><span class="bold">৳${bn(it.saleAmount)}</span></div>`; });
+        const saleKg=s.items.reduce((a,it)=>a+(it.kg||0),0);
+        h+=`<div class="between xs"><span class="gray">এই চালানের মোট ওজন:</span><b class="blue">${bn(saleKg)} কেজি</b></div>`;
+        h+=`<div class="between xs"><span class="gray">এই বিক্রয়ের মোট:</span><b>৳${bn(s.totalSale)}</b></div>`;
+        if(s.myFreight>0) h+=`<div class="between xs red"><span>🚚 আমার ভাড়া:</span><span>৳${bn(s.myFreight)}</span></div>`;
+        if(s.custFreight>0) h+=`<div class="between xs gray"><span>🚚 কাস্টমার ভাড়া:</span><span>৳${bn(s.custFreight)}</span></div>`;
+        h+=`<div class="between xs green"><span>লাভ:</span><b>৳${bn(s.totalProfit)}</b></div>`;
+        h+=`<div class="flex mt" style="gap:6px">
+          <button class="btn btn-green btn-sm" style="flex:2;padding:5px" onclick="copySaleReceipt('${cu.id}','${s.id}')">📋 এই দিনের রসিদ পাঠান</button>
+          <button class="btn btn-red btn-sm" style="flex:1;padding:5px" onclick="delSale('${cu.id}','${s.id}')">মুছুন</button>
+        </div>`;
+        h+=`</div>`;
+      });
+      if(cu.oldDue>0){ h+=`<div style="background:#fdf2f8;border-radius:6px;padding:6px;margin-bottom:6px" class="xs"><div class="between"><span style="color:#be185d">💰 আগের/অতিরিক্ত বকেয়া:</span><b>৳${bn(cu.oldDue)}</b></div></div>`; }
+
+      // ক্রেডিট রেটিং (সবুজ/হলুদ/লাল) সেট করা
+      h+=`<div class="box" style="background:#f7f4ec;border:1px solid var(--line);padding:8px">
+        <div class="bold xs mb">🎯 কাস্টমারের ধরন (বিক্রির সময় দেখা যাবে)</div>
+        <div class="flex" style="gap:6px">
+          <button class="btn btn-sm" style="flex:1;background:${cu.creditTag==='green'?'#1f5f3f':'#e6f0ea'};color:${cu.creditTag==='green'?'#fff':'#1f5f3f'}" onclick="setCreditTag('${cu.id}','green')">🟢 নিরাপদ</button>
+          <button class="btn btn-sm" style="flex:1;background:${cu.creditTag==='yellow'?'#a5750f':'#fdf6e3'};color:${cu.creditTag==='yellow'?'#fff':'#a5750f'}" onclick="setCreditTag('${cu.id}','yellow')">🟡 মাঝারি</button>
+          <button class="btn btn-sm" style="flex:1;background:${cu.creditTag==='red'?'#b5432f':'#fbe9e5'};color:${cu.creditTag==='red'?'#fff':'#b5432f'}" onclick="setCreditTag('${cu.id}','red')">🔴 ঝুঁকি</button>
+        </div>
+      </div>`;
+      // এই কাস্টমারের নিজস্ব খোঁজ-সতর্কতা
+      h+=`<div class="box box-blue xs" style="padding:8px">
+        <div class="between"><span class="bold blue">⏰ খোঁজ-সতর্কতা (এই কাস্টমার)</span><span class="gray">${cu.inactiveDays?cu.inactiveDays+' দিন':'ডিফল্ট '+inactiveDaysLimit+' দিন'}</span></div>
+        <div class="flex mt"><input id="inact-${cu.id}" type="number" placeholder="দিন (খালি=ডিফল্ট)" value="${cu.inactiveDays||''}" style="flex:1;margin-bottom:0"><button class="btn btn-blue btn-sm" onclick="setCustInactive('${cu.id}')">সেট</button></div>
+      </div>`;
+      // মাসিক মালের হিসাব
+      const cmk=custMonthlyKg(cu);
+      if(cmk.length>0){
+        h+=`<div class="box box-blue xs"><div class="bold blue mb">📊 মাসিক মালের হিসাব</div>`;
+        cmk.forEach(mo=>{
+          h+=`<div class="between" style="padding:3px 0;border-bottom:1px solid #dbe7f7"><span>${mo.label}</span><span><b class="blue">${bn(mo.kg)} কেজি</b> <span class="gray">| ৳${bn(mo.taka)}</span></span></div>`;
+        });
+        h+=`</div>`;
+      }
+      // জমার হিসাব
+      if(cu.payments&&cu.payments.length){ h+=`<div class="bold xs mt mb">💰 জমার হিসাব:</div><div style="background:#f0fdf4;border-radius:6px;padding:8px" class="xs">`; cu.payments.slice().reverse().forEach(p=>{ h+=`<div class="between"><span class="gray">${p.date}</span><span class="green bold">৳${bn(p.amount)}</span></div>`; }); h+=`</div>`; }
+
+      // সারসংক্ষেপ
+      h+=`<div class="box box-yellow xs">
+        <div class="between"><span>সব মিলিয়ে মোট:</span><b>৳${bn(t.totalSale)}</b></div>
+        ${t.totalMyFreight>0?`<div class="between red"><span>🚚 মোট ভাড়া (বাদ):</span><b>৳${bn(t.totalMyFreight)}</b></div>`:''}
+        <div class="between green"><span>মোট লাভ:</span><b>৳${bn(t.totalProfit)}</b></div>
+        <div class="between"><span>মোট জমা:</span><b>৳${bn(t.totalPaid)}</b></div>
+        <div class="between bold" style="border-top:1px solid #fde047;padding-top:4px;margin-top:4px"><span>বাকি:</span><b class="${bal>0?'red':'green'}">৳${bn(bal)}</b></div>
+        <div class="flex mt"><input type="number" placeholder="জমা টাকা" id="pay-${cu.id}" style="flex:1;margin-bottom:0"><button class="btn btn-green btn-sm" onclick="addCustomerPayment(${cu.id})">জমা নিন</button></div>
+      </div>
+      <div class="box box-orange xs">
+        <div class="bold orange mb">➕ আলাদা বকেয়া যোগ</div>
+        <div class="flex"><input type="number" placeholder="বকেয়া টাকা" id="due-${cu.id}" style="flex:1;margin-bottom:0"><button class="btn btn-orange btn-sm" onclick="addCustomerDue(${cu.id})">যোগ</button></div>
+      </div>
+      <div class="box box-blue xs">
+        <div class="bold blue mb">📤 রসিদ পাঠান</div>
+        <div class="flex" style="gap:6px;margin-bottom:6px">
+          <button class="btn btn-green btn-sm" style="flex:1" onclick="shareReceipt(${cu.id})">📲 শেয়ার</button>
+          <button class="btn btn-blue btn-sm" style="flex:1" onclick="copyReceipt(${cu.id})">📋 কপি</button>
+        </div>
+        <div class="flex" style="gap:6px">
+          <button class="btn btn-purple btn-sm" style="flex:1" onclick="smsReceipt(${cu.id})">✉️ SMS</button>
+          <button class="btn btn-orange btn-sm" style="flex:1" onclick="printReceipt(${cu.id})">🖨️ প্রিন্ট</button>
+        </div>
+      </div>
+      <button class="btn btn-red btn-sm mt" style="width:100%" onclick="delCustomer(${cu.id})">কাস্টমার ডিলিট</button></div>`;
+    }
+    h+=`</div>`;
+  return h;
+}
+
+function renderCustomerList(){
+  let list=customers.slice();
+  if(custSearch.trim()){ const q=custSearch.toLowerCase(); list=list.filter(c=>c.name.toLowerCase().includes(q)||(c.mobile||'').includes(q)); }
+  if(list.length===0) return `<p class="center gray sm" style="padding:24px">কোনো কাস্টমার নেই</p>`;
+  // শেষ লেনদেনের তারিখ অনুযায়ী নতুন-আগে সাজাই, তারপর দিন ধরে গ্রুপ করি
+  list.sort((a,b)=>custLastTS(b)-custLastTS(a));
+  const groups={}; const order=[];
+  list.forEach(cu=>{ const k=dateGroupKey(custLastTS(cu)); if(!groups[k]){ groups[k]=[]; order.push(k); } groups[k].push(cu); });
+  let h='';
+  order.forEach(k=>{
+    const arr=groups[k];
+    const label=dateGroupLabel(custLastTS(arr[0]));
+    h+=`<div style="margin:12px 0 6px;padding:6px 10px;background:#eef2ff;border-radius:6px;font-weight:700;font-size:13px;color:#4338ca">📅 ${label} <span style="font-weight:400;color:#6b7280">(${arr.length} জন)</span></div>`;
+    arr.forEach(cu=>{ h+=renderOneCustomer(cu); });
+  });
+  return h;
+}
+
+function renderDue(){
+  // শুধু বাকি আছে এমন কাস্টমার
+  const dueCustomers=customers.filter(c=>custNetDue(c)>0);
+  const totalDue=dueCustomers.reduce((s,c)=>s+custNetDue(c),0);
+  let h='';
+  h+='<div class="box box-yellow"><div class="between bold"><span>মোট বকেয়া ('+dueCustomers.length+' জন):</span><span class="red" style="font-size:18px">৳'+bn(totalDue)+'</span></div></div>';
+
+  if(dueCustomers.length===0){ h+='<p class="center green sm" style="padding:24px">🎉 কোনো বকেয়া নেই, সব পরিশোধ!</p>'; return h; }
+
+  // সার্চ
+  h+='<input id="dueSearchInput" placeholder="🔍 নাম বা মোবাইল দিয়ে খুঁজুন" value="'+dueSearch+'" oninput="doDueSearch(this.value)">';
+  h+='<div id="dueList">'+renderDueList()+'</div>';
+  return h;
+}
+function renderDueList(){
+  const dueCustomers=customers.filter(c=>custNetDue(c)>0);
+  let list=dueCustomers.slice();
+  if(dueSearch.trim()){ const q=dueSearch.toLowerCase(); list=list.filter(c=>c.name.toLowerCase().includes(q)||(c.mobile||'').includes(q)); }
+  list.sort((a,b)=>custNetDue(b)-custNetDue(a));
+  let h='';
+  list.forEach(cu=>{
+    const bal=custNetDue(cu);
+    const tag='<span class="tag tag-red">বাকি</span>';
+    const inactiveDays=daysSince(custLastTS(cu));
+    const inactiveTag=inactiveDays>=custLimit(cu)?' <span class="tag" style="background:#fdecea;color:#c2382e">⏰ '+inactiveDays+' দিন খোঁজ নেই</span>':'';
+    h+='<div class="item"><div class="item-head" onclick="toggleCustomer('+cu.id+')">'
+      +'<div style="flex:1"><div class="bold sm">'+cu.name+' '+creditBadge(cu)+' '+tag+inactiveTag+'</div>'
+      +'<div class="xs gray">📱 '+cu.mobile+(cu.address?' | 📍 '+cu.address:'')+'</div>'
+      +'<div class="xs gray">📅 শেষ লেনদেন: '+dateGroupLabel(custLastTS(cu))+'</div>'
+      +'<div class="flex xs mt"><span class="blue">মোট: ৳'+bn(custTotals(cu).totalSale)+'</span><span class="green">জমা: ৳'+bn(custTotals(cu).totalPaid)+'</span><span class="red bold">বাকি: ৳'+bn(bal)+'</span></div></div>'
+      +'<div style="display:flex;flex-direction:column;align-items:center;gap:6px">'
+      +'<button onclick="event.stopPropagation();callCustomer(\''+cu.mobile+'\')" style="background:var(--green);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer">📞</button>'
+      +'<span>'+(expandedCustomer===cu.id?'▲':'▼')+'</span></div></div>';
+    if(expandedCustomer===cu.id){
+      h+='<div class="item-body">';
+      h+='<div class="box box-yellow xs">'
+        +'<div class="flex"><input type="number" placeholder="জমা টাকা" id="pay-'+cu.id+'" style="flex:1;margin-bottom:0"><button class="btn btn-green btn-sm" onclick="addCustomerPayment('+cu.id+')">জমা নিন</button></div>'
+        +'</div>';
+      h+='<div class="flex mt" style="gap:6px">'
+        +'<button class="btn btn-green btn-sm" style="flex:1" onclick="shareReceipt('+cu.id+')">📲 শেয়ার</button>'
+        +'<button class="btn btn-orange btn-sm" style="flex:1" onclick="printReceipt('+cu.id+')">🖨️ প্রিন্ট</button>'
+        +'</div>';
+      h+='</div>';
+    }
+    h+='</div>';
+  });
+  return h;
+}
+function doDueSearch(v){ dueSearch=v; const el=document.getElementById('dueList'); if(el) el.innerHTML=renderDueList(); }
+
+function renderSupplier(){
+  let h=`<div class="box-blue box xs gray">🏭 এখানে তাদের রাখুন যাদের কাছ থেকে আপনি মাল কেনেন এবং যাদের টাকা দিতে হবে (আপনার দেনা)।</div>`;
+  h+=`<button class="btn btn-orange" onclick="toggleAddSupplier()">${showAddSupplier?'✕ বাতিল':'+ নতুন সাপ্লায়ার / দেনা'}</button>`;
+  if(showAddSupplier){
+    h+=`<div class="box box-orange">
+      <input id="spName" placeholder="সাপ্লায়ারের নাম">
+      <input id="spMobile" type="tel" placeholder="মোবাইল নম্বর (না থাকলে খালি)">
+      <input id="spDesc" placeholder="মালের বিবরণ (যেমন: ৫০ বস্তা ভুট্টা)">
+      <input id="spAmount" type="number" placeholder="মোট কত টাকা দিতে হবে">
+      <input id="spPaid" type="number" placeholder="এখন কত পরিশোধ করলেন (না করলে খালি)">
+      <button class="btn btn-orange" onclick="saveSupplier()">সেভ করুন</button>
+    </div>`;
+  }
+  const totalDebt=suppliers.reduce((s,sp)=>s+(sp.totalAmount-sp.totalPaid),0);
+  h+=`<div class="box box-yellow"><div class="between bold"><span>মোট দেনা (আমি দিবো):</span><span class="orange">৳${bn(totalDebt)}</span></div></div>`;
+  if(suppliers.length===0) h+=`<p class="center gray sm" style="padding:24px">কোনো সাপ্লায়ার নেই</p>`;
+  else suppliers.slice().reverse().forEach(sp=>{
+    const bal=sp.totalAmount-sp.totalPaid;
+    h+=`<div class="item"><div class="item-head" onclick="toggleSupplier(${sp.id})">
+      <div style="flex:1"><div class="bold sm">${sp.name} ${bal>0?'<span class="tag tag-red">দেনা</span>':'<span class="tag tag-green">পরিশোধ</span>'}</div>
+      ${sp.mobile?'<div class="xs gray">📱 '+sp.mobile+'</div>':''}
+      <div class="flex xs mt"><span class="blue">মোট: ৳${bn(sp.totalAmount)}</span><span class="${bal>0?'orange bold':'green'}">বাকি: ৳${bn(bal)}</span></div></div>
+      <span>${expandedSupplier===sp.id?'▲':'▼'}</span></div>`;
+    if(expandedSupplier===sp.id){
+      h+=`<div class="item-body">`;
+      // কেনাকাটার ইতিহাস (প্রথম এন্ট্রি + পরে যোগ করা সবগুলো)
+      const purchases=sp.purchases||[{desc:sp.desc,amount:sp.totalAmount,date:sp.date}];
+      h+=`<div class="bold xs mb">📦 মালের হিসাব:</div><div style="background:#fdf6e3;border-radius:6px;padding:8px" class="xs">`;
+      purchases.forEach(pu=>{ h+=`<div class="between" style="padding:2px 0"><span class="gray">${pu.date}${pu.desc?' • '+pu.desc:''}</span><b>৳${bn(pu.amount)}</b></div>`; });
+      h+=`</div>`;
+      if(sp.payments&&sp.payments.length){ h+=`<div class="bold xs mt mb">💰 পরিশোধের হিসাব:</div><div style="background:#f0fdf4;border-radius:6px;padding:8px" class="xs">`; sp.payments.forEach(p=>{ h+=`<div class="between"><span class="gray">${p.date}</span><span class="green bold">৳${bn(p.amount)}</span></div>`; }); h+=`</div>`; }
+      h+=`<div class="box box-yellow xs">
+        <div class="between"><span>মোট দেনা:</span><b>৳${bn(sp.totalAmount)}</b></div>
+        <div class="between"><span>পরিশোধ:</span><b>৳${bn(sp.totalPaid)}</b></div>
+        <div class="between bold" style="border-top:1px solid #fde047;padding-top:4px;margin-top:4px"><span>বাকি:</span><b class="${bal>0?'orange':'green'}">৳${bn(bal)}</b></div>
+        <div class="flex mt"><input type="number" placeholder="পরিশোধ টাকা" id="sppay-${sp.id}" style="flex:1;margin-bottom:0"><button class="btn btn-orange btn-sm" onclick="addSupplierPayment(${sp.id})">পরিশোধ</button></div>
+      </div>
+      <div class="box box-orange xs">
+        <div class="bold orange mb">➕ নতুন মাল/দেনা যোগ করুন</div>
+        <p class="xs gray mb">আবার মাল নিলে এখানে টাকার পরিমাণ যোগ করুন</p>
+        <input placeholder="মালের বিবরণ (যেমন: ৩০ বস্তা ভুট্টা)" id="spduedesc-${sp.id}" style="margin-bottom:6px">
+        <div class="flex"><input type="number" placeholder="টাকার পরিমাণ" id="spdue-${sp.id}" style="flex:1;margin-bottom:0"><button class="btn btn-orange btn-sm" onclick="addSupplierDue(${sp.id})">যোগ করুন</button></div>
+      </div>
+      <button class="btn btn-red btn-sm mt" style="width:100%" onclick="delSupplier(${sp.id})">ডিলিট</button></div>`;
+    }
+    h+=`</div>`;
+  });
+  return h;
+}
+
+function toggleMonth(k){ expandedMonth = expandedMonth===k ? null : k; render(); }
+function toggleTopMonth(k){ expandedTopMonth = expandedTopMonth===k ? null : k; render(); }
+// মাসভিত্তিক সেরা বিক্রিত মালের রিপোর্ট টেক্সট আকারে ডাউনলোড
+// সব সময়ের বিক্রয় রিপোর্ট টেক্সট আকারে ডাউনলোড
+function exportAllTimeSalesReport(){
+  const report=itemSalesReport();
+  let t='🌾 NGF AGRO\\n';
+  t+='সব সময়ের বিক্রয় রিপোর্ট (মাল অনুযায়ী)\\n';
+  t+='তারিখ: '+now()+'\\n';
+  t+='===============================\\n\\n';
+  if(report.length===0) t+='এখনো কোনো বিক্রয় নেই\\n';
+  else report.forEach((r,i)=>{
+    t+=(i+1)+'. '+r.name+'\\n';
+    t+='   বস্তা: '+r.bags+' | ওজন: '+bn(r.kg)+' কেজি\\n';
+    t+='   বিক্রয়: ৳'+bn(r.taka)+' | লাভ: ৳'+bn(r.profit)+'\\n\\n';
+  });
+  t+='===============================\\n   NGF AGRO\\n';
+  dl(t,'NGF_AGRO_সবসময়ের_বিক্রয়_রিপোর্ট_'+new Date().toISOString().slice(0,10)+'.txt','text/plain');
+}
+function exportMonthlyTopSelling(){
+  const monthly=monthlyTopSelling();
+  let t='🌾 NGF AGRO\n';
+  t+='মাসভিত্তিক সেরা বিক্রিত মালের রিপোর্ট\n';
+  t+='তারিখ: '+now()+'\n';
+  t+='===============================\n';
+  if(monthly.length===0) t+='\nএখনো কোনো বিক্রয় নেই\n';
+  monthly.forEach(mo=>{
+    t+='\n■ '+mo.label+'\n';
+    t+='-------------------------------\n';
+    mo.items.forEach((r,i)=>{
+      t+=(i+1)+'. '+r.name+': '+bn(r.kg)+' কেজি ('+r.bags+' বস্তা, ৳'+bn(r.taka)+')\n';
+    });
+  });
+  t+='\n===============================\n   NGF AGRO\n';
+  dl(t,'NGF_AGRO_মাসিক_মাল_রিপোর্ট_'+new Date().toISOString().slice(0,10)+'.txt','text/plain');
+}
+function renderMore(){
+  let h='';
+  // মালিকের উত্তোলন
+  const totalWd=withdrawals.reduce((s,w)=>s+w.amount,0);
+  const totalProfitAll=customers.reduce((s,c)=>s+custTotals(c).totalProfit,0);
+  h+=`<div class="box box-orange"><div class="bold orange mb">💼 মালিকের উত্তোলন (লাভ থেকে টাকা নেওয়া)</div>
+    <div class="between sm"><span>মোট লাভ:</span><b class="green">৳${bn(totalProfitAll)}</b></div>
+    <div class="between sm"><span>মোট উত্তোলন:</span><b class="orange">৳${bn(totalWd)}</b></div>
+    <div class="between sm bold" style="border-top:1px dashed #f3e0bd;padding-top:4px;margin-top:4px"><span>হাতে থাকা লাভ:</span><b class="green">৳${bn(totalProfitAll-totalWd)}</b></div>
+    <input id="wdNote" placeholder="কী জন্য নিলেন (ঐচ্ছিক)" style="margin-top:8px">
+    <div class="flex"><input id="wdAmount" type="number" placeholder="টাকার পরিমাণ" style="flex:1;margin-bottom:0"><button class="btn btn-orange btn-sm" onclick="addWithdrawal()">তুলুন</button></div>`;
+  if(withdrawals.length>0){
+    h+=`<div class="bold xs mt mb">উত্তোলনের হিস্টরি:</div><div style="background:#fff;border-radius:8px;padding:8px;max-height:160px;overflow-y:auto" class="xs">`;
+    withdrawals.slice().reverse().forEach(w=>{
+      h+=`<div class="between" style="border-bottom:1px solid #f0f0f0;padding:3px 0"><span class="gray">${w.date}${w.note?' • '+w.note:''}</span><span><b class="orange">৳${bn(w.amount)}</b> <span onclick="delWithdrawal(${w.id})" style="color:#c2382e;cursor:pointer">✕</span></span></div>`;
+    });
+    h+=`</div>`;
+  }
+  h+=`</div>`;
+  // খোঁজ-সতর্কতার দিন সেটিং
+  h+=`<div class="box box-blue"><div class="bold blue mb">⏰ খোঁজ-সতর্কতার সেটিং</div>
+    <p class="xs gray mb">সবার জন্য ডিফল্ট: কত দিন লেনদেন না হলে সতর্ক করবে? (এখন: ${inactiveDaysLimit} দিন)। চাইলে প্রতিটা কাস্টমারের ভেতরে আলাদা দিনও সেট করা যায়।</p>
+    <div class="flex"><input id="inactiveDaysInput" type="number" placeholder="দিন সংখ্যা (যেমন ১৫)" value="${inactiveDaysLimit}" style="flex:1;margin-bottom:0"><button class="btn btn-blue btn-sm" onclick="setInactiveDays()">সেট করুন</button></div>
+  </div>`;
+  // মাল-মেলানো সেটিং
+  const aliases=getItemAliases();
+  const rawNames=allRawItemNames();
+  h+=`<div class="box box-orange">
+    <div class="bold orange mb">🔗 মাল মেলানো (ভিন্ন বানান একই মাল হিসেবে গণনা)</div>
+    <p class="xs gray mb">যেমন "মিক্স ভুষি" ও "মিকচার ভুষি" যদি আসলে একই মাল হয়, এখানে দুটোকে এক নামে মিলিয়ে দিন। রিপোর্ট ও র‍্যাঙ্কিং এ এক হয়ে যাবে (স্টক তালিকায় বদলাবে না)।</p>
+    <input id="aliasFrom" placeholder="এই নামটা (যেমন: মিকচার ভুষি)" style="margin-bottom:6px">
+    <div class="flex"><input id="aliasTo" placeholder="এই নামে গণনা হবে (যেমন: মিক্সার ভুষি)" style="flex:1;margin-bottom:0"><button class="btn btn-orange btn-sm" onclick="addItemAlias()">মেলান</button></div>`;
+  if(rawNames.length>0){
+    h+=`<div class="xs gray mt mb">আপনার বিক্রি করা মালের নামগুলো (কপি করে উপরে ব্যবহার করুন):</div><div style="background:#fff;border-radius:6px;padding:8px;max-height:100px;overflow-y:auto" class="xs gray">${rawNames.join(' • ')}</div>`;
+  }
+  if(Object.keys(aliases).length>0){
+    h+=`<div class="bold xs mt mb">বর্তমান মেলানো তালিকা:</div><div style="background:#fff;border-radius:8px;padding:8px" class="xs">`;
+    Object.entries(aliases).forEach(([from,to])=>{
+      h+=`<div class="between" style="border-bottom:1px solid #f0f0f0;padding:4px 0"><span>${from} → <b>${to}</b></span><span onclick="delItemAlias('${from}')" style="color:#b5432f;cursor:pointer">✕</span></div>`;
+    });
+    h+=`</div>`;
+  }
+  h+=`</div>`;
+  h+=`<div class="box box-green"><div class="bold mb">💾 ব্যাকআপ নিন</div>
+    <p class="xs gray mb">নিয়মিত ব্যাকআপ রাখুন। ফোন বদলালে বা সমস্যা হলে ফিরিয়ে আনতে পারবেন।</p>
+    <button class="btn btn-blue mb" onclick="exportTXT()">📄 রিপোর্ট ডাউনলোড (পড়ার জন্য)</button>
+    <button class="btn btn-green" onclick="exportJSON()">💾 ফুল ব্যাকআপ (ফেরানোর জন্য)</button>
+  </div>`;
+  h+=`<div class="box box-blue"><div class="bold mb">♻️ ডাটা ফিরিয়ে আনুন</div>
+    <p class="xs gray mb">আগের ব্যাকআপ ফাইল (.json) সিলেক্ট করুন।</p>
+    <label class="upload">📁 ব্যাকআপ ফাইল নির্বাচন করুন<input type="file" accept=".json" onchange="importJSON(event)"></label>
+  </div>`;
+  h+=`<div class="box box-orange"><div class="bold mb">📊 মোট তথ্য</div>
+    <div class="between sm"><span>মোট কাস্টমার:</span><b>${customers.length} জন</b></div>
+    <div class="between sm"><span>মোট সাপ্লায়ার:</span><b>${suppliers.length} জন</b></div>
+    <div class="between sm"><span>স্টকে মাল:</span><b>${stock.length} ধরনের</b></div>
+  </div>`;
+  h+=`<p class="note">NGF AGRO • আপনার ব্যবসার সঙ্গী</p>`;
+  return h;
+}
+
+// পুরনো কাস্টমার নতুন কাঠামোয় + একই মোবাইলের ডুপ্লিকেট এক করা
+(function migrateAll(){
+  if(customers.length){
+    // শুধু কাঠামো নতুন করি (পুরনো→নতুন), অটো-মার্জ করি না (আলাদা লোক মেশার ঝুঁকি এড়াতে)
+    customers=customers.map(c=>migrateCustomer(c));
+    save();
+  }
+})();
+switchTab('dashboard');
+</script>
+</body>
+</html>
